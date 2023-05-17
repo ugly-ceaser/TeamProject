@@ -33,7 +33,6 @@ function register($name,$email,$pwd){
     
 }
 
-// Login function
 function login($userid,$pwd){
     global $conn;
     $pwd = clean_input($pwd);
