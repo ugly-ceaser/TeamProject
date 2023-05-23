@@ -37,9 +37,9 @@ function register($name,$email,$pwd){
 function login($userid,$pwd){
     global $conn;
     $pwd = clean_input($pwd);
-    $userid = clean_input($userid);
+    $userid = filter_mail($userid);
 
-    $sql = "SELECT * FROM `user` WHERE `username` = '$userid'";
+    $sql = "SELECT * FROM `user` WHERE `user_email` = '$userid'";
     $result = $conn->query($sql);
 
     if (mysqli_num_rows($result) > 0){
@@ -59,7 +59,7 @@ function login($userid,$pwd){
             }
         }
     }else {
-        message("warning","user not found Please confirm your password and name","");
+        message("warning","user not found Please confirm your password and name","home");
     }
    
   }
@@ -156,13 +156,13 @@ function logout(){
         let linked = name;
         document.querySelector('.alert').style.display="none";
         if (linked == 'dashboard') {
-            window.location.href = 'http://localhost/investment/TeamProject/dashboard';
+            window.location.href = 'http://localhost/TeamProject/dashboard';
         }else if(linked == 'home'){
-            window.location.href = 'http://localhost/investment/';
+            window.location.href = 'http://localhost/TeamProject/';
         }else if (linked == ' '){
             window.location.href = '';
         }else{
-            window.location.href = `http://localhost/investment/${linked}`;
+            window.location.href = `http://localhost/TeamProject/${linked}`;
         }
         
     }

@@ -30,8 +30,8 @@
             <div class="form-content">
                 <form  action="" method="post">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required="required" />
+                        <label for="username">Email Address</label>
+                        <input type="email" id="email" name="email" required="required" />
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -52,7 +52,7 @@
         </div>
         <?php
                         if (isset($_POST['login'])) {
-                            $name = $_POST['username'];
+                            $name = $_POST['email'];
                             $password = $_POST['password'];
                             login($name, $password);
                         }

@@ -354,26 +354,62 @@ header nav ul li a {
     }
 }
 
-/* Footer Section */
-#footer {
-    height: 30vh;
-    padding: 3rem 0;
-}
-
-.footer-content {
-    width: 40%;
+/* CSS styles for the mini footer section */
+.mini-footer {
+    background-color: #ffffff;
+    padding: 20px;
     text-align: center;
-    margin: 0 auto;
-    margin-bottom: 2rem;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333333;
 }
 
-.copyright {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid #000;
-    color: black;
+.mini-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mini-footer ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.mini-footer ul li a {
+    color: #333333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.mini-footer ul li a:hover {
+    color: #888888;
+}
+
+/* CSS styles for the cool copyright section */
+.cool-copyright {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.cool-copyright a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.cool-copyright a:hover {
+    color: #888888;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+    .mini-footer {
+        font-size: 12px;
+    }
 }
 
 /* Auth Page */
