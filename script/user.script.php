@@ -148,7 +148,7 @@ function logout(){
     $_SESSION['email'] = NULL;
     $_SESSION['pwd'] = NULL;
     session_destroy();
-    message('success','Logging out!!','home');
+    header('Location: ./');
 }
 ?>
 <script>

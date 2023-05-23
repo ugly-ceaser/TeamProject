@@ -162,7 +162,12 @@ ob_start();
                         <li><a href="#"><i class="fa fa-envelope"></i><?=$user_email?></a></li>
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                        <li><a href="#"><i class="fa fa-door-open"></i> Logout</a></li>
+                        <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
+                        <?php 
+                            if (isset($_GET['logout'])) {   
+                                logout();
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>
