@@ -72,13 +72,13 @@ return $randomString;
         let linked = name;
         document.querySelector('.alert').style.display="none";
         if (linked == 'dashboard') {
-            window.location.href = 'http://localhost/investment/dashboard';
+            window.location.href = 'http://localhost/TeamProject/dashboard';
         }else if(linked == 'home'){
-            window.location.href = 'http://localhost/investment/';
+            window.location.href = 'http://localhost/TeamProject/';
         }else if (linked == ' '){
             window.location.href = '';
         }else{
-            window.location.href = `http://localhost/investment/${linked}`;
+            window.location.href = `http://localhost/TeamProject/${linked}`;
         }
         
     }
