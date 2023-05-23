@@ -1,3 +1,17 @@
+<?php
+session_start();
+ob_start();
+    include_once"script/user.script.php";
+    if (!isset($_SESSION['id'])) {
+        header("Location: auth");
+    }else {
+       foreach(fetchWhere('user','id',$_SESSION['id']) as $row)
+            extract($row);            
+    
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,8 +158,8 @@
                     <i class="fa fa-chevron-down"></i>
                     <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
                     <ul class="drop-down">
-                        <li><a href="#">Luis Vuitton</a></li>
-                        <li><a href="#"><i class="fa fa-envelope"></i> luisvuitton20@gmail.com</a></li>
+                        <li><a href="#"><?=$username?></a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i><?=$user_email?></a></li>
                         <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                         <li><a href="#"><i class="fa fa-door-open"></i> Logout</a></li>

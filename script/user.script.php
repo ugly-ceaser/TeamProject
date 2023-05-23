@@ -14,19 +14,20 @@ function register($name,$email,$pwd){
     $name = clean_input($name);
     $pwd = clean_input($pwd);
     $email = filter_mail($email);
-    $userid = random_gen(10);
     $pswd = enc_decrypt($pwd);
 
-    $sql = "INSERT INTO `user`(`userid`, `username`, `useremail`, `userpassword`) 
-    VALUES ('$userid','$name','$email','$pswd')";
+    $sql = "INSERT INTO `user`(`username`, `user_email`, `user_password`) 
+    VALUES ('$name','$email','$pswd')";
     $execute = $conn->query($sql);
-    if ($execute) {
-        $_SESSION['userid'] = $userid;
+    if ($execute) {        
         $_SESSION['name'] = $name;
         $_SESSION['email'] = $email;
-        $_SESSION['pwd'] = $pwd;
-
-        message('success',"Registration Successfull '$userid' is your user id ",''); 
+        $sql = "SELECT * FROM `user` WHERE `username` = '$name'";
+        $result = $conn->query($sql);
+        foreach ($result as $key) 
+        $id = $key['id'];
+        $_SESSION['id'] = $id;
+        header('Location:dashboard');
     }else{
         $mesage ="Registeration failed";
     }
@@ -44,12 +45,14 @@ function login($userid,$pwd){
 
     if (mysqli_num_rows($result) > 0){
         foreach ($result as $key) {   
-            $pswd = $key['user_password'];
-            // $pswd = enc_decrypt($key['user_password'],'decrypt');
+            // $pswd = $key['user_password'];
+            $pswd = enc_decrypt($key['user_password'],'decrypt');
             if ($pswd == $pwd) {
                 $_SESSION['name'] = $key['username'];
                 $_SESSION['email'] = $key['user_email'];
                 $_SESSION['pwd'] = $pwd;
+                $id = $key['id'];
+                $_SESSION['id'] = $id;
         
                 message('success',"Welcome " . $key['username'],'dashboard');
             }else {
@@ -57,7 +60,7 @@ function login($userid,$pwd){
             }
         }
     }else {
-        message("warning","user not found Please confirm your assword and userid","");
+        message("warning","user not found Please confirm your password and name","");
     }
    
   }
@@ -154,7 +157,7 @@ function logout(){
         let linked = name;
         document.querySelector('.alert').style.display="none";
         if (linked == 'dashboard') {
-            window.location.href = 'http://localhost/investment/dashboard';
+            window.location.href = 'http://localhost/investment/TeamProject/dashboard';
         }else if(linked == 'home'){
             window.location.href = 'http://localhost/investment/';
         }else if (linked == ' '){
