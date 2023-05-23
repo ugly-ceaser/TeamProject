@@ -23,41 +23,48 @@
 
 <body>
     <div class="form">    
-        <div class="form-panel one">
+        <div class="form-panel ">
             <div class="form-header">
-                <h1>Login</h1>
+                <h1>Register</h1>
             </div>
             <div class="form-content">
-                <form  action="" method="post">
+            <form  action="" method="post">
+                <?php 
+                if (isset($message)) {
+                    echo"<h5 style='color:red'>$message</h5>";
+                }?>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required="required" />
+                        <input type="text" id="username" name="username" required="required" style="color: black;" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required="required" style="color: black;"/>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required="required" />
+                        <input type="password" id="password" name="password" required="required" style="color: black;"/>
                     </div>
                     <div class="form-group">
-                        <label class="form-remember">
-                            <input type="checkbox" />Remember Me
-                        </label><a class="form-recovery" href="#">Forgot Password?</a>
-                        <a class="form-recovery" href="reg">Create an accountt?</a>
+                        <label for="cpassword">Confirm Password</label>
+                        <input type="password" id="cpassword" name="cpassword" required="required" style="color: black;"/>
                     </div>
                     <div class="form-group">
-                        <button type="submit" name="login">Log In</button>
+                        <button type="submit" name="register" id="reg">Register</button>
                     </div>
+                    <a class="form-recovery" href="auth">Login instead</a>
                 </form>
-                
             </div>
-        </div>
-        <?php
-                        if (isset($_POST['login'])) {
+
+            <?php
+                        if (isset($_POST['register'])) {
                             $name = $_POST['username'];
-                            $password = $_POST['password'];
-                            login($name, $password);
+                            $email = $_POST['email'];
+                            $pwd = $_POST['password'];
+                            register($name,$email,$pwd);
                         }
                 ?>
-    
+        </div>
     </div>
 
     <!-- Assets -->
@@ -65,8 +72,6 @@
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <!-- Base Sripts File -->
-
-
 </body>
 
 </html>
