@@ -159,6 +159,7 @@ function logout(){
             window.location.href = 'http://localhost/TeamProject/dashboard';
         }else if(linked == 'home'){
             window.location.href = 'http://localhost/TeamProject/';
+
         }else if (linked == ' '){
             window.location.href = '';
         }else{
