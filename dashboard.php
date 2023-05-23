@@ -179,10 +179,6 @@ ob_start();
             <div class="trade-history">
                 <div class="trade-history-header">
                     <h2>Trade History</h2>
-                    <div class="trade-filter">
-                        <i class="fa fa-filter"></i>
-                        <h5>BSC</h5>
-                    </div>
                 </div>
 
                 <div class="trade-history-body">

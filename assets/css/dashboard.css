@@ -411,7 +411,6 @@ main {
 .trade-filter {
     display: flex;
     align-items: center;
-    background-color: red;
     width: 150px;
     gap: 30px;
 }
@@ -458,21 +457,16 @@ td {
 /* Responsive */
 @media (max-width: 1230px) {
     .scrolly {
-        grid-template-columns: auto;
+        grid-template-columns: auto auto;
     }
 
     .sideBar {
         height: 100%;
     }
 
-    main {
-        display: block;
-    }
-
     .left {
         width: 100%;
         height: auto;
-        background-color: red;
     }
 
     .chilli-powder {
@@ -491,5 +485,53 @@ td {
 
     .box-content-list {
         margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 415px) {
+    .sideBar {
+        display: none;
+    }
+
+    main {
+        width: 100% ;
+        margin-left: 0;
+        display: block;
+    }
+
+    .scrolly {
+        grid-template-columns: auto;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    p.icon {
+        margin-left: 0;
+    }
+
+    .right {
+        height: auto;
+        width: 100% !important;
+    }
+
+    .search-box form {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box form input::placeholder {
+        font-size: 17px;
+        text-transform: capitalize;
+    }
+
+    .right .box-content-list {
+        display: flex;
+        align-items: center;
+    }
+
+    .trade-history-body {
+        overflow-x: scroll;
     }
 }
