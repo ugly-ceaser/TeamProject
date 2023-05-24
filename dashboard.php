@@ -1,14 +1,14 @@
 <?php
 session_start();
 ob_start();
-    include_once"script/user.script.php";
-    if (!isset($_SESSION['id'])) {
-        header("Location: auth");
-    }else {
-       foreach(fetchWhere('user','id',$_SESSION['id']) as $row)
-            extract($row);            
-    
-    }
+include_once "script/user.script.php";
+if (!isset($_SESSION['id'])) {
+    header("Location: auth");
+} else {
+    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
+        extract($row);
+
+}
 ?>
 
 
@@ -59,10 +59,36 @@ ob_start();
 
     <!-- Main Section -->
     <main>
+        <span class="fa fa-bars" id="sideBarToggler"></span>
         <div class="left">
-            <div class="box-content">
-                <p class="text">PancakeSwap Pair</p>
-                <p><i class="fa fa-chevron-down"></i></p>
+            <div class="box-content-list">
+                <div class="search-box">
+                    <form>
+                        <i class="fa fa-search"></i>
+                        <input type="search" placeholder="search" class="search-input">
+                    </form>
+                </div>
+
+                <div class="profile">
+                    <i class="fa fa-chevron-down"></i>
+                    <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
+                    <ul class="drop-down">
+                        <li><a href="#">
+                                <?= $username ?>
+                            </a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i>
+                                <?= $user_email ?>
+                            </a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                        <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
+                        <?php
+                        if (isset($_GET['logout'])) {
+                            logout();
+                        }
+                        ?>
+                    </ul>
+                </div>
             </div>
 
             <div class="chilli">
@@ -105,7 +131,7 @@ ob_start();
                     </div>
                 </div>
                 <div class="scrolly-item">
-                    <i class="fa fa-chart-line"></i>
+                    <i class="fa fa-arrow-down"></i>
                     <div class="scrolly-item-text">
                         <p>Total Withdrawal</p>
                         <h5>4,2020</h5>
@@ -128,7 +154,7 @@ ob_start();
                     </div>
 
                     <div class="if-no-be-you">
-                            <img src="./assets/img/pie.png" alt="" width="200">
+                        <img src="./assets/img/pie.png" alt="" width="200">
                     </div>
                 </div>
 
@@ -146,34 +172,68 @@ ob_start();
         </div>
 
         <div class="right">
-            <div class="box-content-list">
-                <div class="search-box">
-                    <form>
-                        <i class="fa fa-search"></i>
-                        <input type="search" placeholder="search" class="search-input">
+            <div class="paprica">
+                <button id="depositButton">Deposit</button>
+                <button id="withdrawButton">Withdrawal</button>
+                <div class="form-section" id="depositSection">
+                    <form class="form" style="margin-top: 2rem;">
+                        <h4>Deposit</h4>
+                        <!-- Deposit Form HTML -->
+                        <div class="form-group" style="margin-bottom: 20px">
+                            <label for="amount">Amount</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-dollar-sign"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Transaction ID</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        ID
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                            </div>
+                        </div>
+                        <input type="submit" class="dep" value="Submit">
                     </form>
                 </div>
 
-                <div class="profile">
-                    <i class="fa fa-chevron-down"></i>
-                    <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
-                    <ul class="drop-down">
-                        <li><a href="#"><?=$username?></a></li>
-                        <li><a href="#"><i class="fa fa-envelope"></i><?=$user_email?></a></li>
-                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                        <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
-                        <?php 
-                            if (isset($_GET['logout'])) {   
-                                logout();
-                            }
-                        ?>
-                    </ul>
+                <div class="form-section" id="withdrawalSection">
+                <form class="form" style="margin-top: 2rem;">
+                        <h4>Withdraw</h4>
+                        <!-- withdraw Form HTML -->
+                        <div class="form-group" style="margin-bottom: 20px">
+                            <label for="amount">Amount</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-dollar-sign"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount to withdraw">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Transaction ID</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        ID
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                            </div>
+                        </div>
+                        <input type="submit" class="dep" value="Submit">
+                    </form>
                 </div>
-            </div>
-
-            <div class="paprica">
-
             </div>
 
             <div class="trade-history">
@@ -228,23 +288,69 @@ ob_start();
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
     <!-- Base Sripts File -->
     <script>
-        // Dashboard Profile Dropdown
-        const profile = document.querySelector(".profile");
-        const dropdown_btn = document.querySelector(".fa-chevron-down");
-        const dropdown_menu = document.querySelector(".drop-down");
-        let tf = false;
+    // Dashboard Profile Dropdown
+    const profile = document.querySelector(".profile");
+    const dropdown_btn = document.querySelector(".fa-chevron-down");
+    const dropdown_menu = document.querySelector(".drop-down");
+    let tf = false;
 
-        profile.addEventListener('click', (e) => {
-            tf = !tf;
-            if (tf) {
-                dropdown_btn.classList.add('rotate_90');
-                dropdown_menu.classList.add('show');
-            }
-            else {
-                e.target.classList.remove('rotate');
-                dropdown_menu.classList.remove('show');
-            }
-        })
+    profile.addEventListener('click', (e) => {
+        tf = !tf;
+        if (tf) {
+            dropdown_btn.classList.add('rotate_90');
+            dropdown_menu.classList.add('show');
+        } else {
+            e.target.classList.remove('rotate');
+            dropdown_menu.classList.remove('show');
+        }
+    })
+
+    const sideBarToggle = document.getElementById("sideBarToggler");
+    const sideBar = document.querySelector(".sideBar");
+    let shwOrNot = false;
+
+    sideBarToggle.addEventListener('click', (e) => {
+        shwOrNot = !shwOrNot;
+        if (shwOrNot) {
+            sideBar.style.display = 'block';
+            e.target.style.marginLeft = "2rem";
+            console.log(shwOrNot);
+        } else {
+            sideBar.style.display = 'none';
+            e.target.style.marginLeft = "1.5rem";
+        }
+    })
+
+    // Deposit %& Withdraw Form Toggler
+
+    const depositSection = document.querySelector("#depositSection");
+    const withdrawSection = document.querySelector("#withdrawalSection");
+    const depositButton = document.querySelector("#depositButton");
+    const withdrawButton = document.querySelector("#withdrawButton");
+    let ufo = false;
+
+    depositButton.addEventListener('click', e => {
+        ufo = !ufo;
+        if (ufo) {
+            depositSection.style.display = "none";
+            withdrawalSection.style.display = "none";
+        }
+        else {
+            depositSection.style.display = "block";
+        }
+    })
+
+    withdrawButton.addEventListener('click', e => {
+        ufo = !ufo;
+        if (ufo) {
+            withdrawalSection.style.display = "none";
+            depositSection.style.display = "none";
+        }
+        else {
+            withdrawalSection.style.display = "block";
+        }
+    })
+
     </script>
 </body>
 

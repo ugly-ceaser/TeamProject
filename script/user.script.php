@@ -160,7 +160,6 @@ function logout(){
             window.location.href = 'http://localhost/TeamProject/dashboard';
         }else if(linked == 'home'){
             window.location.href = 'http://localhost/TeamProject/';
->>>>>>>>> Temporary merge branch 2
         }else if (linked == ' '){
             window.location.href = '';
         }else{
