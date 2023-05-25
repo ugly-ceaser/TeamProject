@@ -30,8 +30,9 @@ header {
 }
 
 .addColor {
-    background-color: var(--primary-alt);
-    backdrop-filter: blur(4px);
+    background-color: #6d6dff57;
+    backdrop-filter: blur(25px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .addColor li a {
@@ -277,6 +278,7 @@ header nav ul li a {
     background: url(../img/o-STAR-QUOTES-GPS-GUIDE-facebook.jpg) no-repeat;
     background-size: cover;
     position: relative;
+    width: 100vw;
 }
 
 #analysis h4,
@@ -434,7 +436,7 @@ header nav ul li a {
     z-index: 15;
     position: relative;
     background: #FFFFFF;
-    width: 30%;
+    width: 40%;
     border-radius: 4px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -666,6 +668,26 @@ header nav ul li a {
     position: relative;
     z-index: 40;
     color: #FFFFFF;
+}
+
+@media (max-width: 1330px) {
+    .hero-content .text-content p {
+        font-size: 35px !important;    
+    }
+
+    #analysis {
+        height: auto;
+        width: 100%;
+        padding-bottom: 1rem;
+    }
+
+    #analysis p {
+        width: 100% !important;
+    }
+
+    #analysis .content {
+        width: 50%;
+    }
 }
 
 @media (max-width: 912px) {
