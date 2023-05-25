@@ -31,13 +31,13 @@ function enc_decrypt($string, $action = 'encrypt')
     return $output;
 }
 
-function random_gen($length){
+function random_gen($length,$key){
     $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    $randomString = "user";
+    $randomString = "$key";
     for ($i = 0; $i < $length; $i++) {
     $randomString .= $chars[rand(0, strlen($chars) - 1)];
 
-}
+    }
 return $randomString;
 
 }

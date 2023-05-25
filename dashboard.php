@@ -9,6 +9,13 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
+$trx_id = random_gen(10,'Trx');
+$sql = "SELECT * FROM `transactions` WHERE trx_id = '$trx_id'";
+$result = $conn->query($sql);
+
+if(mysqli_num_rows($result) > 0){
+    $trx_id = random_gen(10,'Trx');
+}
 ?>
 
 
@@ -187,7 +194,7 @@ if (!isset($_SESSION['id'])) {
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount">
+                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter the amount">
                             </div>
                         </div>
                         <div class="form-group">
@@ -198,10 +205,10 @@ if (!isset($_SESSION['id'])) {
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>">
                             </div>
                         </div>
-                        <input type="submit" class="dep" value="Submit">
+                        <input type="submit" class="dep" value="Deposit" name="trx">
                     </form>
                 </div>
 
@@ -217,7 +224,7 @@ if (!isset($_SESSION['id'])) {
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount to withdraw">
+                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter the amount">
                             </div>
                         </div>
                         <div class="form-group">
@@ -228,13 +235,19 @@ if (!isset($_SESSION['id'])) {
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>">
                             </div>
                         </div>
-                        <input type="submit" class="dep" value="Submit">
+                        <input type="submit" class="dep" value="Withdraw" name="trx">
                     </form>
                 </div>
             </div>
+
+            <?php
+                if(isset($_POST['trx'])){
+                    echo "ready";
+                }
+            ?>
 
             <div class="trade-history">
                 <div class="trade-history-header">
