@@ -1,5 +1,6 @@
 <?php
 include_once 'db.script.php';
+include_once 'trx.script.php';
 
 
 function filter_mail($input){

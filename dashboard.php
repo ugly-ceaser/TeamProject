@@ -127,7 +127,7 @@ if(mysqli_num_rows($result) > 0){
                     <i class="fa fa-wallet"></i>
                     <div class="scrolly-item-text">
                         <p>Avaliable Balance</p>
-                        <h5>$200,000.89</h5>
+                        <h5><?=$balance?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
@@ -183,7 +183,7 @@ if(mysqli_num_rows($result) > 0){
                 <button id="depositButton">Deposit</button>
                 <button id="withdrawButton">Withdrawal</button>
                 <div class="form-section" id="depositSection">
-                    <form class="form" style="margin-top: 2rem;">
+                    <form class="form" style="margin-top: 2rem;" method="post" action="">
                         <h4>Deposit</h4>
                         <!-- Deposit Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -194,7 +194,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter the amount">
+                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -205,7 +205,7 @@ if(mysqli_num_rows($result) > 0){
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>" readonly>
                             </div>
                         </div>
                         <input type="submit" class="dep" value="Deposit" name="trx">
@@ -213,7 +213,7 @@ if(mysqli_num_rows($result) > 0){
                 </div>
 
                 <div class="form-section" id="withdrawalSection">
-                <form class="form" style="margin-top: 2rem;">
+                <form class="form" style="margin-top: 2rem;" method="post" action="">
                         <h4>Withdraw</h4>
                         <!-- withdraw Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -224,7 +224,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter the amount">
+                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -235,7 +235,7 @@ if(mysqli_num_rows($result) > 0){
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>" readonly>
                             </div>
                         </div>
                         <input type="submit" class="dep" value="Withdraw" name="trx">
@@ -245,49 +245,51 @@ if(mysqli_num_rows($result) > 0){
 
             <?php
                 if(isset($_POST['trx'])){
-                    echo "ready";
+                    if($_POST['trx'] == "Deposit"){
+                       $amount = $_POST['damount'];
+                       $trx_id = $_POST['trx_id'];
+                        deposit($trx_id,$amount,$_SESSION['id']);
+                   }elseif ($_POST['trx'] == "Withdraw") {
+                        $amount = $_POST['wamount'];
+                        $trx_id = $_POST['trx_id'];
+                        withdraw($trx_id,$amount,$_SESSION['id']);
+                   }
                 }
             ?>
 
             <div class="trade-history">
                 <div class="trade-history-header">
-                    <h2>Trade History</h2>
+                    <h2>Latest Transaction</h2>
                 </div>
 
                 <div class="trade-history-body">
                     <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction Type</th>
+                                <th>Transaction Id</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                      <tbody>
+                      <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id ORDER BY `id` DESC LIMIT 5 ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                         <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
+                            <td><?=$trx_type?></td>
+                            <td><?=$trx_id?></td>
+                            <td>$ <?=$amount?></td>
+                            <td><?=$status?></td>
+                            <td><?= substr($date,0,10) ?></td>
+                        </tr>            
+                        <?php }?>
+                      </tbody>
                     </table>
                 </div>
             </div>
