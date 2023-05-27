@@ -83,10 +83,10 @@ if(mysqli_num_rows($result) > 0){
                         <li><a href="#">
                                 <?= $username ?>
                             </a></li>
-                        <li><a href="#"><i class="fa fa-envelope"></i>
+                        <li><i class="fa fa-envelope"></i>
                                 <?= $user_email ?>
-                            </a></li>
-                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            </li>
+                        <li><a href="./profile.php"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                         <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
                         <?php
@@ -116,7 +116,7 @@ if(mysqli_num_rows($result) > 0){
             </div>
 
             <div class="curry">
-                <h2>903,37520<span><small>$</small></span></h2>
+                <h2><span><small>$</small></span>903,375.20</h2>
                 <div class="curry-spice">
                     <p>0.34000</p>
                 </div>
