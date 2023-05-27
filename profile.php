@@ -32,7 +32,10 @@
     </aside>
 
     <section class="main" id="profile_form">
-        <h1>Edit Profile</h1>
+        <div class="main-header">
+            <h1>Edit Profile</h1>
+            <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+        </div>
 
         <div class="form-section">
             <div class="profile-photo">
@@ -67,6 +70,10 @@
 
     <section class="main" id="passord_security_form">
         <div class="form-section">
+            <div class="main-header">
+                <h1>Password And Security</h1>
+                <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+            </div>
             <button class="change-password-btn">Change Password</button>
 
             <div class="change-password-form">
@@ -112,17 +119,20 @@
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
-    
+
     <script>
         const edit_profile = document.querySelector('.edit_profile');
-        const profile_form =document.querySelector('#profile_form');
-        const passord_security_form =document.querySelector('#passord_security_form');
+        const profile_form = document.querySelector('#profile_form');
+        const passord_security_form = document.querySelector('#passord_security_form');
         const edit_password = document.querySelector('.edit_password');
-        const change_password_btn =document.querySelector('.change-password-btn');
-        const reset_password_btn =document.querySelector('.reset-password-btn');
-        const change_password_form =document.querySelector('.change-password-form');
+        const change_password_btn = document.querySelector('.change-password-btn');
+        const reset_password_btn = document.querySelector('.reset-password-btn');
+        const change_password_form = document.querySelector('.change-password-form');
         const edit_profile_chev = document.querySelector('#chev');
         const edit_password_chev = document.querySelector('#chev');
+        const toggleSideBar = document.querySelectorAll("#toggleSideBar");
+        const aside = document.querySelector('aside');
+        let showOrHideAside = false;
 
         let tf = false;
         edit_profile.addEventListener('click', (e) => {
@@ -146,6 +156,21 @@
         change_password_btn.addEventListener('click', (e) => {
             change_password_form.style.display = 'block'
         })
+
+        toggleSideBar.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                showOrHideAside = !showOrHideAside;
+                if (showOrHideAside) {
+                    aside.style.display = "block";
+                    e.target.textContent = "Hide"
+                }
+                else {
+                    aside.style.display = "none"
+                    e.target.textContent = "Menu"
+                }
+            })
+        })
+
     </script>
 </body>
 
