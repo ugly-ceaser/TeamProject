@@ -46,7 +46,10 @@ if (!isset($_SESSION['id'])) {
     </aside>
 
     <section class="main" id="profile_form">
-        <h1>Edit Profile</h1>
+        <div class="main-header">
+            <h1>Edit Profile</h1>
+            <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+        </div>
 
         <div class="form-section">
             <div class="profile-photo">
@@ -84,8 +87,12 @@ if (!isset($_SESSION['id'])) {
         </div>
     </section>
 
-    <section class="main" id="passord_security_form">
+    <section class="main" id="password_security_form">
         <div class="form-section">
+            <div class="main-header">
+                <h1>Password And Security</h1>
+                <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+            </div>
             <button class="change-password-btn">Change Password</button>
 
             <div class="change-password-form">
@@ -131,41 +138,75 @@ if (!isset($_SESSION['id'])) {
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
-    
+
     <script>
-        const edit_profile = document.querySelector('.edit_profile');
-        const profile_form =document.querySelector('#profile_form');
-        const passord_security_form =document.querySelector('#passord_security_form');
-        const edit_password = document.querySelector('.edit_password');
-        const change_password_btn =document.querySelector('.change-password-btn');
-        const reset_password_btn =document.querySelector('.reset-password-btn');
-        const change_password_form =document.querySelector('.change-password-form');
-        const edit_profile_chev = document.querySelector('#chev');
-        const edit_password_chev = document.querySelector('#chev');
+        const editProfile = document.querySelector('.edit_profile');
+        const profileForm = document.querySelector('#profile_form');
+        const passwordSecurityForm = document.querySelector('#password_security_form');
+        const editPassword = document.querySelector('.edit_password');
+        const changePasswordBtn = document.querySelector('.change-password-btn');
+        const changePasswordForm = document.querySelector('.change-password-form');
+        const toggleSideBar = document.querySelectorAll("#toggleSideBar");
+        const aside = document.querySelector('aside');
 
-        let tf = false;
-        edit_profile.addEventListener('click', (e) => {
-            if (!tf) {
-                edit_profile.classList.add('active');
-                profile_form.style.display = 'block';
-                passord_security_form.style.display = 'none';
-                edit_password.classList.remove('active');
-            }
-        })
+        let showOrHideAside = false;
 
-        edit_password.addEventListener('click', (e) => {
-            if (!tf) {
-                edit_password.classList.add('active');
-                profile_form.style.display = 'none'
-                edit_profile.classList.remove('active');
-                passord_security_form.style.display = 'block';
-            }
-        })
+        editProfile.addEventListener('click', () => {
+            setActive(editProfile);
+            showForm(profileForm);
+            hideForm(passwordSecurityForm);
+            removeActive(editPassword);
+        });
 
-        change_password_btn.addEventListener('click', (e) => {
-            change_password_form.style.display = 'block'
-        })
+        editPassword.addEventListener('click', () => {
+            setActive(editPassword);
+            showForm(passwordSecurityForm);
+            hideForm(profileForm);
+            removeActive(editProfile);
+        });
+
+        changePasswordBtn.addEventListener('click', () => {
+            showForm(changePasswordForm);
+        });
+
+        toggleSideBar.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                showOrHideAside = !showOrHideAside;
+                if (showOrHideAside) {
+                    showElement(aside);
+                    e.target.textContent = "Hide";
+                } else {
+                    hideElement(aside);
+                    e.target.textContent = "Menu";
+                }
+            });
+        });
+
+        function setActive(element) {
+            element.classList.add('active');
+        }
+
+        function removeActive(element) {
+            element.classList.remove('active');
+        }
+
+        function showForm(form) {
+            form.style.display = 'block';
+        }
+
+        function hideForm(form) {
+            form.style.display = 'none';
+        }
+
+        function showElement(element) {
+            element.style.display = 'block';
+        }
+
+        function hideElement(element) {
+            element.style.display = 'none';
+        }
     </script>
+
 </body>
 
 </html>
