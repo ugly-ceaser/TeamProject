@@ -45,23 +45,14 @@ if(mysqli_num_rows($result) > 0){
         <div class="brand-logo">
             <img src="./assets/img/logo.png" alt="">
         </div>
-        <a href="#"><i class="fa fa-house"></i></a>
+        <a href="" title="dashboard"><i class="fa fa-house"></i></a>
 
         <ul class="red-menu">
-            <li><a href="#"><i class="fa fa-search"></i></a></li>
+            <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
             <li><a href="#"><i class="fa fa-plug"></i></a></li>
             <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-            <li><a href="#"><i class="fa fa-tv"></i></a></li>
+            <li title="Signout"><a href="?logout=yes"><i class="fa fa-sign-out-alt"></i></a></li>
         </ul>
-
-        <ul class="blue-menu">
-            <li><a href="#"><i class="fa fa-bolt"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
-        </ul>
-
-        <a href=""><i class="fa fa-chart-line"></i></a>
-        <a href=""><i class="fa fa-shield"></i></a>
     </aside>
 
     <!-- Main Section -->
@@ -70,10 +61,7 @@ if(mysqli_num_rows($result) > 0){
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
-                    <form>
-                        <i class="fa fa-search"></i>
-                        <input type="search" placeholder="search" class="search-input">
-                    </form>
+                   <h2>Dashboard</h2>
                 </div>
 
                 <div class="profile">
@@ -95,30 +83,6 @@ if(mysqli_num_rows($result) > 0){
                         }
                         ?>
                     </ul>
-                </div>
-            </div>
-
-            <div class="chilli">
-                <div class="chilli-powder">
-                    <img src="./assets/img/705d515eda7b99e7e02956938661be23.jpg" alt="">
-                    <div class="chilli-sauce">
-                        <span class="bbc">BSC/<span class="cake">Cake</span></span>
-                        <span class="txt">Lorem ipsum dolor sit amet consectetur.</span>
-                    </div>
-                    <i class="fa fa-plus"></i>
-                </div>
-
-                <div class="chilli-meat">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-            </div>
-
-            <div class="curry">
-                <h2><span><small>$</small></span>903,375.20</h2>
-                <div class="curry-spice">
-                    <p>0.34000</p>
                 </div>
             </div>
 

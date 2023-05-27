@@ -1,3 +1,17 @@
+<?php
+session_start();
+ob_start();
+include_once "script/user.script.php";
+if (!isset($_SESSION['id'])) {
+    header("Location: auth");
+} else {
+    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
+        extract($row);
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,26 +53,31 @@
                 <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
             </div>
 
+            <div class="form-group">
+                <label for="user_image">Select Image</label>
+                <input type="file" name="user_image" id="user_image" class="p-1">
+            </div>
+
             <div class="form-diff">
                 <div class="form-group">
                     <label for="firstname">First name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control">
+                    <input type="text" name="first_name" id="first_name" class="form-control" spellcheck="true" value="<?=$firstname?>">
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control">
+                    <input type="text" name="last_name" id="last_name" class="form-control"spellcheck="true" value="<?=$lastname?>">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" id="email">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" spellcheck="true" value="<?=$username?>">
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" spellcheck="true" value="<?=$user_email?>">
             </div>
 
             <input type="submit" value="Save">
