@@ -1,5 +1,6 @@
 <?php
 include_once 'db.script.php';
+include_once 'trx.script.php';
 
 
 function filter_mail($input){
@@ -157,9 +158,9 @@ function logout(){
         document.querySelector('.alert').style.display="none";
         if (linked == 'dashboard') {
             window.location.href = 'http://localhost/TeamProject/dashboard';
+            window.location.href = 'http://localhost/TeamProject/dashboard';
         }else if(linked == 'home'){
             window.location.href = 'http://localhost/TeamProject/';
-
         }else if (linked == ' '){
             window.location.href = '';
         }else{

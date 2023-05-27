@@ -2,14 +2,18 @@
     --primary-default: #6d6dff;
 }
 
+/* Defaults font-styles */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-a {
-    font-family: 'Merriweather', serif;
+a,
+td,
+label,
+button {
+    font-family: source code pro;
 }
 
 body {
@@ -22,6 +26,17 @@ body {
 .fa-chart-line,
 .fa-shield {
     color: white
+}
+
+.fa-bars {
+    /* position: absolute;
+    right: 2rem;
+    top: 20px; */
+    cursor: pointer;
+    position: relative;
+    padding-top: 1rem;
+    display: none;
+    margin-left: 1.5rem;  
 }
 
 .fa-chart-line {
@@ -40,6 +55,32 @@ body {
     font-size: 21px;
     flex-direction: column;
     background: var(--primary-default);
+}
+
+.input-group-prepend .input-group-text {
+    height: 100%;
+    border-radius: 0;
+}
+
+.form h4 {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.dep {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary-default);
+    margin-top: 10px;
+    color: white;
+}
+/* 
+.input-group-prepend .input-group-text {
+} */
+
+#dollar {
+    outline: none;
 }
 
 .sideBar .brand-logo {
@@ -211,19 +252,19 @@ main {
 
 .scrolly .scrolly-item {
     width: 95%;
-    border-radius: 20px;
+    border-radius: 10px;
     background: #6d6dff44;
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
-    height: 120px;
+    height: 100px;
 }
 
 
 .scrolly .scrolly-item .fa-wallet,
 .scrolly .scrolly-item .fa-piggy-bank,
-.scrolly .scrolly-item .fa-chart-line,
+.scrolly .scrolly-item .fa-arrow-down,
 .scrolly .scrolly-item .fa-dollar-sign {
     padding: 18px 14px;
     border-radius: 20px;
@@ -249,10 +290,7 @@ main {
 }
 
 .chart-section {
-    margin-top: 3rem;
-    height: 34vh;
-    border-radius: 3rem;
-    padding: 2rem;
+    height: 30vh;
     position: relative;
     bottom: 0;
     display: flex;
@@ -263,14 +301,12 @@ main {
 
 .upper {
     display: flex;
-    align-items: center;   
-    margin-top: 3rem; 
+    align-items: center;
     justify-content: space-between;
 }
 
 .lower {
     width: 100%;
-    margin-top: 3rem;
 }
 
 .marijuana {
@@ -292,14 +328,14 @@ main {
     width: 100%;
     height: 10px;
     background-color: #d0d0fe;
-    border-radius: 10px ;
+    border-radius: 10px;
 }
 
 .inner-line {
     background-color: #6d6dff;
     height: 10px;
     width: 80%;
-    border-radius: 10px ;
+    border-radius: 10px;
 }
 
 /* Right Section */
@@ -310,7 +346,7 @@ main {
     padding: 2rem 1rem 0 2rem;
 }
 
-.right .box-content-list {
+.left .box-content-list {
     display: flex;
     gap: 30px;
     align-items: center;
@@ -320,14 +356,14 @@ main {
     width: 370px;
 }
 
-.right .search-box form {
+.left .search-box form {
     background-color: white;
     border: 1px solid black;
     padding: 0 20px;
     border-radius: 30px;
 }
 
-.right .search-box input {
+.left .search-box input {
     border: none;
     background: inherit;
     height: 40px;
@@ -336,7 +372,7 @@ main {
     margin-left: 10px;
 }
 
-.right .search-box form .fa {
+.left .search-box form .fa {
     font-size: 20px;
 }
 
@@ -362,12 +398,12 @@ main {
 
 .drop-down {
     position: absolute;
-    right: 20px;
+    left: 30%;
     top: 4rem;
     list-style-type: none;
     background-color: white;
     padding: 0;
-    transition: all .6s ease-in-out;
+    transition: all .3s ease-in-out;
     opacity: 0;
     padding: 2rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
@@ -392,12 +428,11 @@ main {
 
 .paprica {
     /* margin-top: 3rem; */
-    height: 40vh;
+    height: auto;
     width: 100%;
     padding: 1rem;
     border-radius: 1rem;
-    background-color: var(--primary-default);
-}
+}   
 
 .trade-history {
     padding-top: 2rem;
@@ -443,16 +478,55 @@ tr {
 tr:hover {
     background-color: #6d6dff;
     color: white;
+    cursor: pointer;
 }
 
 td {
     padding: 2rem;
-    text-align: center;    
+    text-align: center;
     font-size: 17px;
     font-weight: 600;
     border-bottom: 1px solid #ddd;
 }
+th {
+    padding: 2rem;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+    border-bottom: 1px solid #ddd;
+}
 
+.form-section {
+    margin-bottom: 20px;
+}
+
+.paprica button {
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary-default);
+    padding: 10px;
+    color: white;
+    font-weight: 700;
+}
+
+#withdrawalSection {
+    display: none;
+}
+
+@media (max-width: 1330px) {
+    .left {
+        width: 40%;
+    }
+    .sideBar {
+        height: 100%;
+    }
+
+    .right {
+        width: 60%;
+        padding: 2rem 1rem 0 .7rem;
+    }
+}
 
 /* Responsive */
 @media (max-width: 1230px) {
@@ -476,11 +550,11 @@ td {
     .chart-section {
         margin-top: 0;
         height: auto;
-        border-radius:  0;
+        border-radius: 0;
     }
 
     .right {
-         width: 100%;
+        width: 100%;
     }
 
     .box-content-list {
@@ -488,13 +562,17 @@ td {
     }
 }
 
-@media (max-width: 415px) {
+@media (max-width: 520px) {
     .sideBar {
         display: none;
     }
 
+    .fa-bars {
+        display: block;
+    }
+
     main {
-        width: 100% ;
+        width: 100%;
         margin-left: 0;
         display: block;
     }
@@ -526,12 +604,16 @@ td {
         text-transform: capitalize;
     }
 
-    .right .box-content-list {
+    .left .box-content-list {
         display: flex;
         align-items: center;
     }
 
     .trade-history-body {
         overflow-x: scroll;
+    }
+
+    .left .drop-down {
+        left: 40%;
     }
 }

@@ -6,6 +6,7 @@ html {
 
 :root {
     --primary-default: #0C104F;
+    --primary-alt: rgb(109, 109, 255);
 }
 
 /* Defaults font-styles */
@@ -16,7 +17,7 @@ h4,
 h5,
 h6,
 a {
-    font-family: 'Merriweather', serif;
+    font-family: source code pro;
 }
 
 /* Header */
@@ -29,8 +30,9 @@ header {
 }
 
 .addColor {
-    background-color: rgb(109, 109, 255);
-    backdrop-filter: blur(4px);
+    background-color: #6d6dff57;
+    backdrop-filter: blur(25px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .addColor li a {
@@ -276,6 +278,7 @@ header nav ul li a {
     background: url(../img/o-STAR-QUOTES-GPS-GUIDE-facebook.jpg) no-repeat;
     background-size: cover;
     position: relative;
+    width: 100vw;
 }
 
 #analysis h4,
@@ -357,22 +360,27 @@ header nav ul li a {
 /* CSS styles for the mini footer section */
 .mini-footer {
     background-color: #ffffff;
-    padding: 20px;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    height: 100px;
     color: #333333;
 }
 
 .mini-footer ul {
     list-style: none;
     padding: 0;
+    height: 80%;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mini-footer ul li {
     display: inline-block;
     margin-right: 10px;
+    font-size: 17px;
 }
 
 .mini-footer ul li a {
@@ -428,7 +436,7 @@ header nav ul li a {
     z-index: 15;
     position: relative;
     background: #FFFFFF;
-    width: 30%;
+    width: 40%;
     border-radius: 4px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -660,6 +668,26 @@ header nav ul li a {
     position: relative;
     z-index: 40;
     color: #FFFFFF;
+}
+
+@media (max-width: 1330px) {
+    .hero-content .text-content p {
+        font-size: 35px !important;    
+    }
+
+    #analysis {
+        height: auto;
+        width: 100%;
+        padding-bottom: 1rem;
+    }
+
+    #analysis p {
+        width: 100% !important;
+    }
+
+    #analysis .content {
+        width: 50%;
+    }
 }
 
 @media (max-width: 912px) {
