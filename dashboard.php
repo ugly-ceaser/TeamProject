@@ -53,13 +53,15 @@ if (!isset($_SESSION['id'])) {
             <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
         </ul>
 
-        <a href=""><i class="fa fa-chart-line"></i></a>
+        <a href="./trade-history.php"><i class="fa fa-chart-line"></i></a>
         <a href=""><i class="fa fa-shield"></i></a>
     </aside>
 
     <!-- Main Section -->
+    <div class="responsive-menu">
+        <span class="bi bi-justify" id="sideBarToggler"></span>
+    </div>
     <main>
-        <span class="fa fa-bars" id="sideBarToggler"></span>
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
@@ -70,15 +72,17 @@ if (!isset($_SESSION['id'])) {
                 </div>
 
                 <div class="profile">
-                    <i class="fa fa-chevron-down"></i>
-                    <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
+                    <div class="profile-header">
+                        <span class="fa fa-chevron-down chg"></span>
+                        <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
+                    </div>
                     <ul class="drop-down">
                         <li><a href="#">
                                 <?= $username ?>
                             </a></li>
                         <li><i class="fa fa-envelope"></i>
-                                <?= $user_email ?>
-                            </li>
+                            <?= $user_email ?>
+                        </li>
                         <li><a href="./profile.php"><i class="fa fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                         <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
@@ -187,7 +191,7 @@ if (!isset($_SESSION['id'])) {
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount">
+                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount to deposit">
                             </div>
                         </div>
                         <div class="form-group">
@@ -206,7 +210,7 @@ if (!isset($_SESSION['id'])) {
                 </div>
 
                 <div class="form-section" id="withdrawalSection">
-                <form class="form" style="margin-top: 2rem;">
+                    <form class="form" style="margin-top: 2rem;">
                         <h4>Withdraw</h4>
                         <!-- withdraw Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -288,68 +292,62 @@ if (!isset($_SESSION['id'])) {
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
     <!-- Base Sripts File -->
     <script>
-    // Dashboard Profile Dropdown
-    const profile = document.querySelector(".profile");
-    const dropdown_btn = document.querySelector(".fa-chevron-down");
-    const dropdown_menu = document.querySelector(".drop-down");
-    let tf = false;
+        // Dashboard Profile Dropdown
+        const profile = document.querySelector(".profile-header");
+        const dropdown_btn = document.querySelector(".chg");
+        const dropdown_menu = document.querySelector(".drop-down");
+        let tf = false;
 
-    profile.addEventListener('click', (e) => {
-        tf = !tf;
-        if (tf) {
-            dropdown_btn.classList.add('rotate_90');
-            dropdown_menu.classList.add('show');
-        } else {
-            e.target.classList.remove('rotate');
-            dropdown_menu.classList.remove('show');
-        }
-    })
+        profile.addEventListener('click', (e) => {
+            tf = !tf;
+            if (tf) {
+                dropdown_menu.classList.add('show');
+            } else {
+                dropdown_menu.classList.remove('show');
+            }
+        })
 
-    const sideBarToggle = document.getElementById("sideBarToggler");
-    const sideBar = document.querySelector(".sideBar");
-    let shwOrNot = false;
+        const sideBarToggle = document.querySelector("#sideBarToggler");
+        const sideBar = document.querySelector(".sideBar");
+        let shwOrNot = false;
 
-    sideBarToggle.addEventListener('click', (e) => {
-        shwOrNot = !shwOrNot;
-        if (shwOrNot) {
-            sideBar.style.display = 'block';
-            e.target.style.marginLeft = "2rem";
-            console.log(shwOrNot);
-        } else {
-            sideBar.style.display = 'none';
-            e.target.style.marginLeft = "1.5rem";
-        }
-    })
+        sideBarToggle.addEventListener('click', (e) => {
+            shwOrNot = !shwOrNot;
+            if (shwOrNot) {
+                sideBar.style.display = 'flex';
+            } else {
+                sideBar.style.display = 'none';
+                e.target.style.marginLeft = "1.5rem";
+            }
+        })
 
-    // Deposit %& Withdraw Form Toggler
 
-    const depositSection = document.querySelector("#depositSection");
-    const withdrawSection = document.querySelector("#withdrawalSection");
-    const depositButton = document.querySelector("#depositButton");
-    const withdrawButton = document.querySelector("#withdrawButton");
-    let ufo = false;
+        // Deposit and withdrawal
+        const depositSection = document.querySelector("#depositSection");
+        const withdrawSection = document.querySelector("#withdrawalSection");
+        const depositButton = document.querySelector("#depositButton");
+        const withdrawButton = document.querySelector("#withdrawButton");
 
-    depositButton.addEventListener('click', e => {
-        ufo = !ufo;
-        if (ufo) {
-            depositSection.style.display = "none";
-            withdrawalSection.style.display = "none";
-        }
-        else {
+        depositButton.addEventListener('click', () => {
             depositSection.style.display = "block";
-        }
-    })
+            withdrawSection.style.display = "none";
+            depositButton.style.backgroundColor = "#6d6dff";
+            depositButton.style.color = "#fff";
+            withdrawButton.style.color = "#000";
+            withdrawButton.style.backgroundColor = "transparent";
+        });
 
-    withdrawButton.addEventListener('click', e => {
-        ufo = !ufo;
-        if (ufo) {
-            withdrawalSection.style.display = "none";
+        withdrawButton.addEventListener('click', () => {
+            withdrawSection.style.display = "block";
             depositSection.style.display = "none";
-        }
-        else {
-            withdrawalSection.style.display = "block";
-        }
-    })
+            withdrawButton.style.backgroundColor = "#6d6dff";
+            depositButton.style.color = "#000";
+            withdrawButton.style.color = "#fff";
+            depositButton.style.backgroundColor = "transparent";
+        });
+
+        // Show the deposit section by default
+        depositButton.click();
 
     </script>
 </body>

@@ -25,9 +25,33 @@
     </header>
 
     <aside>
-        <ul>
+        <div class="sideBar">
+            <div class="brand-logo">
+                <a href="./dashboard.php">
+                <img src="./assets/img/logo.png" alt="">
+                </a>
+            </div>
+            <a href="./dashboard.php"><i class="fa fa-house"></i></a>
+
+            <ul class="red-menu">
+                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                <li><a href="#"><i class="fa fa-plug"></i></a></li>
+                <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
+                <li><a href="#"><i class="fa fa-tv"></i></a></li>
+            </ul>
+
+            <ul class="blue-menu">
+                <li><a href="#"><i class="fa fa-bolt"></i></a></li>
+                <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
+                <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
+            </ul>
+
+            <a href=""><i class="fa fa-chart-line"></i></a>
+            <a href=""><i class="fa fa-shield"></i></a>
+        </div>
+        <ul class="pages" id="pages">
             <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
-            <li class="edit_password"><i class="fa fa-shield"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
         </ul>
     </aside>
 
@@ -41,6 +65,8 @@
             <div class="profile-photo">
                 <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
             </div>
+
+            <input type="file" name="profile_photo" id="profile_photo">
 
             <div class="form-diff">
                 <div class="form-group">
@@ -154,7 +180,8 @@
             toggle.addEventListener('click', (e) => {
                 showOrHideAside = !showOrHideAside;
                 if (showOrHideAside) {
-                    showElement(aside);
+                    aside.style.width = '70%'
+                    aside.style.display = "flex"
                     e.target.textContent = "Hide";
                 } else {
                     hideElement(aside);
