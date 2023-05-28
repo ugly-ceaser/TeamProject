@@ -13,7 +13,7 @@ a,
 td,
 label,
 button {
-    font-family: source code pro;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 body {
@@ -25,18 +25,23 @@ body {
 .fa-house,
 .fa-chart-line,
 .fa-shield {
-    color: white
+    color: white;
 }
 
-.fa-bars {
-    /* position: absolute;
+.responsive-menu {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.bi-justify {
+    position: absolute;
+    top: 20px;
     right: 2rem;
-    top: 20px; */
     cursor: pointer;
-    position: relative;
-    padding-top: 1rem;
     display: none;
-    margin-left: 1.5rem;  
+    position: relative;
+    font-size: 1.5rem;
 }
 
 .fa-chart-line {
@@ -46,6 +51,7 @@ body {
 .sideBar {
     width: 100px;
     height: 100vh;
+    z-index: 1;
     padding: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -136,6 +142,11 @@ main {
     height: 100vh;
     margin-left: 100px;
     display: flex;
+}
+
+.profile-header {
+    width: 100%;
+    cursor: pointer;
 }
 
 /* Left Section */
@@ -381,7 +392,7 @@ main {
     align-items: center;
     gap: 10px;
     margin-left: auto;
-    padding: 10px 10px;
+    padding: 10px;
     margin-right: 7px;
     border-radius: 30px;
 }
@@ -504,9 +515,9 @@ th {
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
-    background: var(--primary-default);
+    background: #6d6dff;
     padding: 10px;
-    color: white;
+    color: black;
     font-weight: 700;
 }
 
@@ -562,12 +573,16 @@ th {
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 540px) {
     .sideBar {
         display: none;
     }
 
-    .fa-bars {
+    .tables {
+        margin-left: 0 !important;
+    }
+
+    .bi-justify {
         display: block;
     }
 
@@ -597,6 +612,27 @@ th {
     .search-box form {
         display: flex;
         align-items: center;
+    }
+
+    .profile {
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .profile-header {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .left .box-content-list {
+        gap: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box {
+        height: 42px;
     }
 
     .search-box form input::placeholder {

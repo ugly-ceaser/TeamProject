@@ -1,17 +1,3 @@
-<?php
-session_start();
-ob_start();
-include_once "script/user.script.php";
-if (!isset($_SESSION['id'])) {
-    header("Location: auth");
-} else {
-    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
-        extract($row);
-
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,9 +25,33 @@ if (!isset($_SESSION['id'])) {
     </header>
 
     <aside>
-        <ul>
+        <div class="sideBar">
+            <div class="brand-logo">
+                <a href="./dashboard.php">
+                <img src="./assets/img/logo.png" alt="">
+                </a>
+            </div>
+            <a href="./dashboard.php"><i class="fa fa-house"></i></a>
+
+            <ul class="red-menu">
+                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                <li><a href="#"><i class="fa fa-plug"></i></a></li>
+                <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
+                <li><a href="#"><i class="fa fa-tv"></i></a></li>
+            </ul>
+
+            <ul class="blue-menu">
+                <li><a href="#"><i class="fa fa-bolt"></i></a></li>
+                <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
+                <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
+            </ul>
+
+            <a href=""><i class="fa fa-chart-line"></i></a>
+            <a href=""><i class="fa fa-shield"></i></a>
+        </div>
+        <ul class="pages" id="pages">
             <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
-            <li class="edit_password"><i class="fa fa-shield"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
         </ul>
     </aside>
 
@@ -56,31 +66,28 @@ if (!isset($_SESSION['id'])) {
                 <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
             </div>
 
-            <div class="form-group">
-                <label for="user_image">Select Image</label>
-                <input type="file" name="user_image" id="user_image" class="p-1">
-            </div>
+            <input type="file" name="profile_photo" id="profile_photo">
 
             <div class="form-diff">
                 <div class="form-group">
                     <label for="firstname">First name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" spellcheck="true" value="<?=$firstname?>">
+                    <input type="text" name="first_name" id="first_name" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control"spellcheck="true" value="<?=$lastname?>">
+                    <input type="text" name="last_name" id="last_name" class="form-control">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" spellcheck="true" value="<?=$username?>">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email">
             </div>
 
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" id="email" spellcheck="true" value="<?=$user_email?>">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
             </div>
 
             <input type="submit" value="Save">
@@ -173,7 +180,8 @@ if (!isset($_SESSION['id'])) {
             toggle.addEventListener('click', (e) => {
                 showOrHideAside = !showOrHideAside;
                 if (showOrHideAside) {
-                    showElement(aside);
+                    aside.style.width = '70%'
+                    aside.style.display = "flex"
                     e.target.textContent = "Hide";
                 } else {
                     hideElement(aside);
