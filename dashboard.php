@@ -130,7 +130,7 @@ if(mysqli_num_rows($result) > 0){
                         <h3>Profit</h3>
                     </div>
 
-                    <div class="if-no-be-you ">
+                    <div class="if-no-be-you text-success">
                         <h2>$<?=$profit?></h2>
                     </div>
                 </div>                        
@@ -154,7 +154,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount to deposit" required>
+                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount to deposit" required min="1">
                             </div>
                         </div>
                         <div class="form-group">
@@ -184,7 +184,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required>
+                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required min="1">
                             </div>
                         </div>
                         <div class="form-group">
