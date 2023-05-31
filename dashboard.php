@@ -124,28 +124,17 @@ if(mysqli_num_rows($result) > 0){
                 </div>
             </div>
 
-            <div class="chart-section">
+            <div class="chart-section mt-5 p-4">
                 <div class="upper">
                     <div class="follow-come">
-                        <h3>Total Score</h3>
-                        <h2>95</h2>
+                        <h3>Profit</h3>
                     </div>
 
-                    <div class="if-no-be-you">
-                        <img src="./assets/img/pie.png" alt="" width="200">
+                    <div class="if-no-be-you ">
+                        <h2>$<?=$profit?></h2>
                     </div>
-                </div>
-
-                <div class="lower">
-                    <div class="marijuana">
-                        <p>Community stats</p>
-                        <p class="icon"><i class="bi bi-heart-fill"></i> 95%</p>
-                        <p>24 Youths</p>
-                    </div>
-                    <div class="line">
-                        <div class="inner-line"></div>
-                    </div>
-                </div>
+                </div>                        
+                    
             </div>
         </div>
 
