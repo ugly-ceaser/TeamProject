@@ -1,3 +1,17 @@
+<?php
+session_start();
+ob_start();
+include_once "script/user.script.php";
+if (!isset($_SESSION['id'])) {
+    header("Location: auth");
+} else {
+    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
+        extract($row);
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,18 +34,18 @@
 
 <body>
     <header>
-        <h2>My Profile</h2>
-        <img src="./assets/img/56bda8eac2e557228b8eecd613a13d47.jpg" alt="profile-image">
+        <h2>Profile</h2>
+        <img src="./img/<?=$user_image?>" alt="profile-image">
     </header>
 
     <aside>
         <div class="sideBar">
             <div class="brand-logo">
-                <a href="./dashboard.php">
+                <a href="./dashboard">
                 <img src="./assets/img/logo.png" alt="">
                 </a>
             </div>
-            <a href="./dashboard.php"><i class="fa fa-house"></i></a>
+            <a href="./dashboard"><i class="fa fa-house"></i></a>
 
             <ul class="red-menu">
                 <li><a href="#"><i class="fa fa-search"></i></a></li>
@@ -62,8 +76,9 @@
         </div>
 
         <div class="form-section">
-            <div class="profile-photo">
-                <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
+           <form action="" method="post" enctype="multipart/form-data">
+           <div class="profile-photo">
+                <img src="./img/<?=$user_image?>" alt="update Profile">
             </div>
 
             <input type="file" name="profile_photo" id="profile_photo">
@@ -71,26 +86,46 @@
             <div class="form-diff">
                 <div class="form-group">
                     <label for="firstname">First name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control">
+                    <input type="text" name="first_name" id="first_name" class="form-control" value="<?=$firstname?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control">
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="<?=$lastname?>" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" id="email">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<?=$username?>" required>
             </div>
+            <input type="submit" value="Save" name="update">
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
+            <?php
 
-            <input type="submit" value="Save">
+                if (isset($_POST['update'])) {
+                    $first_name = $_POST['first_name'];
+                    $last_name = $_POST['last_name'];
+                    $username = $_POST['username'];
+                    $profile_photo = $_FILES['profile_photo'];
+
+                    updateProfile($username,$profile_photo,$first_name,$last_name);
+                }
+
+            ?>
+
+            <?php
+
+                if (isset($_POST['change'])) {
+                    $old = $_POST['oldpassword'];
+                    $new = $_POST['new_password'];
+                    $confirm = $_POST['confirm_password'];
+
+                    updatePassword($old,$new,$confirm);
+                }
+
+            ?>
+           </form>
         </div>
     </section>
 
@@ -103,24 +138,26 @@
             <button class="change-password-btn">Change Password</button>
 
             <div class="change-password-form">
-                <div class="form-group">
-                    <label for="old_password">Old Password</label>
-                    <input type="password" name="oldpassword" id="oldpassword">
-                </div>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="old_password">Old Password</label>
+                        <input type="password" name="oldpassword" id="oldpassword" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="new_password">New Password</label>
-                    <input type="password" name="new_password" id="new_password">
-                </div>
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" name="new_password" id="new_password" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" name="confirm_password" id="confirm_password">
-                </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" required>
+                    </div>
 
-                <input type="submit" value="Update Password">
-                <button class="reset-password-btn">Reset Password</button>
+                    <input type="submit" value="Update Password" name="change">
+                </form>
             </div>
+           
 
             <!-- <div class="change-password">
                 <div class="form-group">

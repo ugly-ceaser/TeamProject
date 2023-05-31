@@ -61,7 +61,8 @@
                             $name = $_POST['username'];
                             $email = $_POST['email'];
                             $pwd = $_POST['password'];
-                            register($name,$email,$pwd);
+                            $cpwd = $_POST['cpassword'];
+                            register($name,$email,$pwd,$cpwd);
                         }
                 ?>
         </div>

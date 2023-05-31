@@ -54,7 +54,7 @@ if(mysqli_num_rows($result) > 0){
             <li title="Signout"><a href="?logout=yes"><i class="fa fa-sign-out-alt"></i></a></li>
         </ul>
 
-        <a href="./trade-history.php"><i class="fa fa-chart-line"></i></a>
+        <a href="./trade-history"><i class="fa fa-chart-line"></i></a>
         <a href=""><i class="fa fa-shield"></i></a>
     </aside>
 
@@ -72,7 +72,7 @@ if(mysqli_num_rows($result) > 0){
                 <div class="profile">
                     <div class="profile-header">
                         <span class="fa fa-chevron-down chg"></span>
-                        <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
+                        <img src="./img/<?=$user_image?>" alt="update profile">
                     </div>
                     <ul class="drop-down">
                         <li><a href="#">
@@ -81,9 +81,7 @@ if(mysqli_num_rows($result) > 0){
                         <li><i class="fa fa-envelope"></i>
                             <?= $user_email ?>
                         </li>
-                        <li><a href="./profile.php"><i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                        <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
+                        <li><a href="./profile"><i class="fa fa-user"></i> Profile</a></li>
                         <?php
                         if (isset($_GET['logout'])) {
                             logout();
@@ -98,28 +96,30 @@ if(mysqli_num_rows($result) > 0){
                     <i class="fa fa-wallet"></i>
                     <div class="scrolly-item-text">
                         <p>Avaliable Balance</p>
-                        <h5><?=$balance?></h5>
+                        <!--completed deposits minus completed withdrawals  -->
+                        <h5>$<?=$balance?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-piggy-bank"></i>
                     <div class="scrolly-item-text">
                         <p>Total Balance</p>
-                        <h5>3,002</h5>
+                        <!-- All deposit minus completed withdrawal -->
+                        <h5>$<?=totalTrx($_SESSION['id'],'deposit') - totalTrx($_SESSION['id'],'withdrawal','completed')?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-arrow-down"></i>
                     <div class="scrolly-item-text">
                         <p>Total Withdrawal</p>
-                        <h5>4,2020</h5>
+                        <h5>$<?=totalTrx($_SESSION['id'],'withdraw')?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-dollar-sign"></i>
                     <div class="scrolly-item-text">
                         <p>Pending Deposits</p>
-                        <h5>2,100</h5>
+                        <h5>$<?=totalTrx($_SESSION['id'],'deposit','pending')?></h5>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@ if(mysqli_num_rows($result) > 0){
                    }elseif ($_POST['trx'] == "Withdraw") {
                         $amount = $_POST['wamount'];
                         $trx_id = $_POST['trx_id'];
-                        withdraw($trx_id,$amount,$_SESSION['id']);
+                        withdraw($trx_id,$amount,$_SESSION['id'],$balance);
                    }
                 }
             ?>

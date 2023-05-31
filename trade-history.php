@@ -1,3 +1,16 @@
+<?php
+session_start();
+ob_start();
+include_once "script/user.script.php";
+if (!isset($_SESSION['id'])) {
+    header("Location: auth");
+} else {
+    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
+        extract($row);
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +114,7 @@
         </div>
 
         <div class="witdrawal_table">
-            <h3>Withdrawals and Pending Withdrawals</h3>
+            <h3>Withdrawals </h3>
             <table>
                 <thead>
                     <tr>
@@ -111,23 +124,26 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'withdraw' ORDER BY `id` DESC ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                     <tr>
-                        <td>2023-05-27</td>
-                        <td>$100.00</td>
-                        <td>Completed</td>
+                        <td><?= substr($date,0,10) ?></td>
+                        <td>$<?=$amount?></td>
+                        <td><?=$status?></td>
                     </tr>
-                    <tr>
-                        <td>2023-05-25</td>
-                        <td>$50.00</td>
-                        <td>Pending</td>
-                    </tr>
+                    <?php }?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </div>
 
         <div class="deposit_table">
-            <h3>Deposits and Pending Deposits</h3>
+            <h3>Deposits </h3>
             <table>
                 <thead>
                     <tr>
@@ -137,16 +153,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'deposit' ORDER BY `id` DESC ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                     <tr>
-                        <td>2023-05-26</td>
-                        <td>$200.00</td>
-                        <td>Completed</td>
+                        <td><?= substr($date,0,10) ?></td>
+                        <td>$<?=$amount?></td>
+                        <td><?=$status?></td>
                     </tr>
-                    <tr>
-                        <td>2023-05-24</td>
-                        <td>$75.00</td>
-                        <td>Pending</td>
-                    </tr>
+                    <?php }?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
