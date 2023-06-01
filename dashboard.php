@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+include_once "./script/db.script.php";
 include_once "script/user.script.php";
 if (!isset($_SESSION['id'])) {
     header("Location: auth");
@@ -9,13 +10,15 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
-$trx_id = random_gen(10,'Trx');
-$sql = "SELECT * FROM `transactions` WHERE trx_id = '$trx_id'";
-$result = $conn->query($sql);
 
-if(mysqli_num_rows($result) > 0){
-    $trx_id = random_gen(10,'Trx');
-}
+$trx_id = random_gen(10,'Trx');
+$sql = "SELECT * FROM `transactions` WHERE `trx_id` = '$trx_id'";
+echo $result = $conn->query($sql);
+
+// $data = mysqli_num_rows($result);
+// if($data > 0){
+//     $trx_id = random_gen(10,'Trx');
+// }
 ?>
 
 
@@ -51,11 +54,11 @@ if(mysqli_num_rows($result) > 0){
             <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
             <li><a href="#"><i class="fa fa-plug"></i></a></li>
             <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-            <li title="Signout"><a href="?logout=yes"><i class="fa fa-sign-out-alt"></i></a></li>
+            <li><a href="./trade-history.php"><i class="fa fa-chart-line"></i></a></li>
         </ul>
 
-        <a href="./trade-history.php"><i class="fa fa-chart-line"></i></a>
         <a href=""><i class="fa fa-shield"></i></a>
+        <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white; margin-top: 20px;"></i></a>
     </aside>
 
     <!-- Main Section -->

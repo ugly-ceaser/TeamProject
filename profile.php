@@ -39,29 +39,22 @@ if (!isset($_SESSION['id'])) {
     </header>
 
     <aside>
+        <!-- Side Bar -->
         <div class="sideBar">
             <div class="brand-logo">
-                <a href="./dashboard.php">
                 <img src="./assets/img/logo.png" alt="">
-                </a>
             </div>
-            <a href="./dashboard.php"><i class="fa fa-house"></i></a>
+            <a href="./dashboard.php" title="dashboard"><i class="fa fa-house"></i></a>
 
             <ul class="red-menu">
-                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
                 <li><a href="#"><i class="fa fa-plug"></i></a></li>
                 <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-                <li><a href="#"><i class="fa fa-tv"></i></a></li>
+                <li><a href="./trade-history.php"><i class="fa fa-chart-line"></i></a></li>
             </ul>
 
-            <ul class="blue-menu">
-                <li><a href="#"><i class="fa fa-bolt"></i></a></li>
-                <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
-                <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
-            </ul>
-
-            <a href=""><i class="fa fa-chart-line"></i></a>
             <a href=""><i class="fa fa-shield"></i></a>
+            <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white; margin-top: 20px;"></i></a>
         </div>
         <ul class="pages" id="pages">
             <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
@@ -80,34 +73,37 @@ if (!isset($_SESSION['id'])) {
                 <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
             </div>
 
-            <div class="form-group">
-                <label for="user_image">Select Image</label>
-                <input type="file" name="user_image" id="user_image" class="p-1">
-            </div>
-
-            <div class="form-diff">
+            <<<<<<< HEAD <input type="file" name="profile_photo" id="profile_photo">
+                =======
                 <div class="form-group">
-                    <label for="firstname">First name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" spellcheck="true" value="<?=$firstname?>">
+                    <label for="user_image">Select Image</label>
+                    <input type="file" name="user_image" id="user_image" class="p-1">
+                </div>
+                >>>>>>> ea28218f5359827785ce1f53bdcf4e183d0e26d9
+
+                <div class="form-diff">
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control" spellcheck="true" value="<?= $firstname ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control" spellcheck="true" value="<?= $lastname ?>">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lastname">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control"spellcheck="true" value="<?=$lastname?>">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" spellcheck="true" value="<?= $username ?>">
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" spellcheck="true" value="<?=$username?>">
-            </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email" spellcheck="true" value="<?= $user_email ?>">
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" id="email" spellcheck="true" value="<?=$user_email?>">
-            </div>
-
-            <input type="submit" value="Save">
+                <input type="submit" value="Save">
         </div>
     </section>
 

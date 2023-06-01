@@ -3,6 +3,8 @@ html {
     margin: 0;
     box-sizing: border-box;
 }
+@import url('https://fonts.googleapis.com/css2?family=Geologica&family=Manrope&family=Merriweather:wght@700&family=Mukta:wght@400;500&family=Raleway&display=swap');
+
 
 :root {
     --primary-default: #0C104F;
@@ -17,7 +19,7 @@ h4,
 h5,
 h6,
 a {
-    font-family: source code pro;
+    font-family: 'Geologica', sans-serif;
 }
 
 /* Header */

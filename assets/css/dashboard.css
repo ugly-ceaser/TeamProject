@@ -2,6 +2,8 @@
     --primary-default: #6d6dff;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Geologica&family=Manrope&family=Merriweather:wght@700&family=Mukta:wght@400;500&family=Raleway&display=swap');
+
 /* Defaults font-styles */
 h1,
 h2,
@@ -13,7 +15,7 @@ a,
 td,
 label,
 button {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Geologica', sans-serif;
 }
 
 body {
@@ -410,6 +412,7 @@ main {
 .drop-down {
     position: absolute;
     left: 30%;
+    z-index: 5;
     top: 4rem;
     list-style-type: none;
     background-color: white;
