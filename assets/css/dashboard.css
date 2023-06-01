@@ -445,6 +445,7 @@ main {
     transition: all .3s ease-in-out;
     opacity: 0;
     padding: 2rem;
+    display: none;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
 }
@@ -452,6 +453,7 @@ main {
 .show {
     top: 6rem;
     opacity: 1;
+    display: block;
 }
 
 .drop-down li {
