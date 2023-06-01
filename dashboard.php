@@ -9,6 +9,13 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
+$trx_id = random_gen(10,'Trx');
+$sql = "SELECT * FROM `transactions` WHERE trx_id = '$trx_id'";
+$result = $conn->query($sql);
+
+if(mysqli_num_rows($result) > 0){
+    $trx_id = random_gen(10,'Trx');
+}
 ?>
 
 
@@ -38,19 +45,13 @@ if (!isset($_SESSION['id'])) {
         <div class="brand-logo">
             <img src="./assets/img/logo.png" alt="">
         </div>
-        <a href="#"><i class="fa fa-house"></i></a>
+        <a href="" title="dashboard"><i class="fa fa-house"></i></a>
 
         <ul class="red-menu">
-            <li><a href="#"><i class="fa fa-search"></i></a></li>
+            <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
             <li><a href="#"><i class="fa fa-plug"></i></a></li>
             <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-            <li><a href="#"><i class="fa fa-tv"></i></a></li>
-        </ul>
-
-        <ul class="blue-menu">
-            <li><a href="#"><i class="fa fa-bolt"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
+            <li title="Signout"><a href="?logout=yes"><i class="fa fa-sign-out-alt"></i></a></li>
         </ul>
 
         <a href="./trade-history.php"><i class="fa fa-chart-line"></i></a>
@@ -65,10 +66,7 @@ if (!isset($_SESSION['id'])) {
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
-                    <form>
-                        <i class="fa fa-search"></i>
-                        <input type="search" placeholder="search" class="search-input">
-                    </form>
+                   <h2>Dashboard</h2>
                 </div>
 
                 <div class="profile">
@@ -95,36 +93,12 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </div>
 
-            <div class="chilli">
-                <div class="chilli-powder">
-                    <img src="./assets/img/705d515eda7b99e7e02956938661be23.jpg" alt="">
-                    <div class="chilli-sauce">
-                        <span class="bbc">BSC/<span class="cake">Cake</span></span>
-                        <span class="txt">Lorem ipsum dolor sit amet consectetur.</span>
-                    </div>
-                    <i class="fa fa-plus"></i>
-                </div>
-
-                <div class="chilli-meat">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-            </div>
-
-            <div class="curry">
-                <h2><span><small>$</small></span>903,375.20</h2>
-                <div class="curry-spice">
-                    <p>0.34000</p>
-                </div>
-            </div>
-
             <div class="scrolly">
                 <div class="scrolly-item">
                     <i class="fa fa-wallet"></i>
                     <div class="scrolly-item-text">
                         <p>Avaliable Balance</p>
-                        <h5>$200,000.89</h5>
+                        <h5><?=$balance?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
@@ -180,7 +154,7 @@ if (!isset($_SESSION['id'])) {
                 <button id="depositButton">Deposit</button>
                 <button id="withdrawButton">Withdrawal</button>
                 <div class="form-section" id="depositSection">
-                    <form class="form" style="margin-top: 2rem;">
+                    <form class="form" style="margin-top: 2rem;" method="post" action="">
                         <h4>Deposit</h4>
                         <!-- Deposit Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -191,7 +165,7 @@ if (!isset($_SESSION['id'])) {
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount to deposit">
+                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -202,15 +176,15 @@ if (!isset($_SESSION['id'])) {
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>" readonly>
                             </div>
                         </div>
-                        <input type="submit" class="dep" value="Submit">
+                        <input type="submit" class="dep" value="Deposit" name="trx">
                     </form>
                 </div>
 
                 <div class="form-section" id="withdrawalSection">
-                    <form class="form" style="margin-top: 2rem;">
+                <form class="form" style="margin-top: 2rem;" method="post" action="">
                         <h4>Withdraw</h4>
                         <!-- withdraw Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -221,7 +195,7 @@ if (!isset($_SESSION['id'])) {
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*" placeholder="Enter the amount to withdraw">
+                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -232,53 +206,61 @@ if (!isset($_SESSION['id'])) {
                                         ID
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="dollar" name="image" accept="image/*">
+                                <input type="text" class="form-control" id="trx_id" name="trx_id" value="<?=$trx_id?>" readonly>
                             </div>
                         </div>
-                        <input type="submit" class="dep" value="Submit">
+                        <input type="submit" class="dep" value="Withdraw" name="trx">
                     </form>
                 </div>
             </div>
 
+            <?php
+                if(isset($_POST['trx'])){
+                    if($_POST['trx'] == "Deposit"){
+                       $amount = $_POST['damount'];
+                       $trx_id = $_POST['trx_id'];
+                        deposit($trx_id,$amount,$_SESSION['id']);
+                   }elseif ($_POST['trx'] == "Withdraw") {
+                        $amount = $_POST['wamount'];
+                        $trx_id = $_POST['trx_id'];
+                        withdraw($trx_id,$amount,$_SESSION['id']);
+                   }
+                }
+            ?>
+
             <div class="trade-history">
                 <div class="trade-history-header">
-                    <h2>Trade History</h2>
+                    <h2>Latest Transaction</h2>
                 </div>
 
                 <div class="trade-history-body">
                     <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction Type</th>
+                                <th>Transaction Id</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                      <tbody>
+                      <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id ORDER BY `id` DESC LIMIT 5 ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                         <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
-                        <tr>
-                            <td>28.80%</td>
-                            <td>000000</td>
-                            <td>0.00120</td>
-                            <td>21</td>
-                            <td>20th</td>
-                            <td>020190</td>
-                        </tr>
+                            <td><?=$trx_type?></td>
+                            <td><?=$trx_id?></td>
+                            <td>$ <?=$amount?></td>
+                            <td><?=$status?></td>
+                            <td><?= substr($date,0,10) ?></td>
+                        </tr>            
+                        <?php }?>
+                      </tbody>
                     </table>
                 </div>
             </div>

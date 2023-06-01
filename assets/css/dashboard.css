@@ -439,7 +439,7 @@ main {
 
 .paprica {
     /* margin-top: 3rem; */
-    height: 40vh;
+    height: auto;
     width: 100%;
     padding: 1rem;
     border-radius: 1rem;
@@ -489,6 +489,7 @@ tr {
 tr:hover {
     background-color: #6d6dff;
     color: white;
+    cursor: pointer;
 }
 
 td {
@@ -496,6 +497,13 @@ td {
     text-align: center;
     font-size: 17px;
     font-weight: 600;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    padding: 2rem;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
     border-bottom: 1px solid #ddd;
 }
 
