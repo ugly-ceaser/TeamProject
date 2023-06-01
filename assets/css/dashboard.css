@@ -274,6 +274,30 @@ main {
     height: 100px;
 }
 
+.profile-details {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    gap: 10px;
+    height: 450px;
+}
+
+.profile-image {
+    display: flex;
+    width: 30%;
+    align-items: center;
+}
+
+.profile-image img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.profile-info h5 {
+    font-size: 23px;
+}
+
 
 .scrolly .scrolly-item .fa-wallet,
 .scrolly .scrolly-item .fa-piggy-bank,
@@ -303,9 +327,10 @@ main {
 }
 
 .chart-section {
-    height: 30vh;
+    height: auto;
     position: relative;
     bottom: 0;
+    padding: 1rem 0;
     display: flex;
     justify-content: space-between;
     flex-direction: column;

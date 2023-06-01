@@ -1,3 +1,16 @@
+<?php
+session_start();
+ob_start();
+include_once "script/user.script.php";
+if (!isset($_SESSION['id'])) {
+    header("Location: auth");
+} else {
+    foreach (fetchWhere('user', 'id', $_SESSION['id']) as $row)
+        extract($row);
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,27 +84,18 @@
     <!-- Side Bar -->
     <aside class="sideBar">
         <div class="brand-logo">
-            <a href="./dashboard.php">
+            <a href="./dashboard">
                 <img src="./assets/img/logo.png" alt="">
             </a>
         </div>
-        <a href="./dashboard.php"><i class="fa fa-house"></i></a>
+        <a href="./dashboard"><i class="fa fa-house"></i></a>
 
         <ul class="red-menu">
-            <li><a href="#"><i class="fa fa-search"></i></a></li>
-            <li><a href="#"><i class="fa fa-plug"></i></a></li>
-            <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-            <li><a href="#"><i class="fa fa-tv"></i></a></li>
+            <li><a href="profile"><i class="fa fa-user"></i></a></li>
+            <li><a href="#"><i class="fa fa-chart-line"></i></a></li>
         </ul>
 
-        <ul class="blue-menu">
-            <li><a href="#"><i class="fa fa-bolt"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrows-spin"></i></a></li>
-            <li><a href="#"><i class="fa fa-arrow-down"></i></a></li>
-        </ul>
-
-        <a href=""><i class="fa fa-chart-line"></i></a>
-        <a href=""><i class="fa fa-shield"></i></a>
+        <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
     </aside>
 
     <div class="tables">
@@ -101,7 +105,7 @@
         </div>
 
         <div class="witdrawal_table">
-            <h3>Withdrawals and Pending Withdrawals</h3>
+            <h3>Withdrawals </h3>
             <table>
                 <thead>
                     <tr>
@@ -111,23 +115,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'withdraw' ORDER BY `id` DESC ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                     <tr>
-                        <td>2023-05-27</td>
-                        <td>$100.00</td>
-                        <td>Completed</td>
+                        <td><?= substr($date,0,10) ?></td>
+                        <td>$<?=$amount?></td>
+                        <td><?=$status?></td>
                     </tr>
-                    <tr>
-                        <td>2023-05-25</td>
-                        <td>$50.00</td>
-                        <td>Pending</td>
-                    </tr>
+                    <?php }?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </div>
 
+                        <?php
+                            if (isset($_GET['logout'])) {
+                                logout();
+                            }
+                        ?>
+
         <div class="deposit_table">
-            <h3>Deposits and Pending Deposits</h3>
+            <h3>Deposits </h3>
             <table>
                 <thead>
                     <tr>
@@ -137,16 +150,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php 
+                        $id = $_SESSION['id'];
+                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'deposit' ORDER BY `id` DESC ";
+                      $result = $conn->query($sql);
+                        foreach($result  as $key) {
+                            extract($key);
+                        ?>
                     <tr>
-                        <td>2023-05-26</td>
-                        <td>$200.00</td>
-                        <td>Completed</td>
+                        <td><?= substr($date,0,10) ?></td>
+                        <td>$<?=$amount?></td>
+                        <td><?=$status?></td>
                     </tr>
-                    <tr>
-                        <td>2023-05-24</td>
-                        <td>$75.00</td>
-                        <td>Pending</td>
-                    </tr>
+                    <?php }?>
                     <!-- Add more rows as needed -->
                 </tbody>
             </table>
