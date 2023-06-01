@@ -3,6 +3,8 @@ html {
     margin: 0;
     box-sizing: border-box;
 }
+@import url('https://fonts.googleapis.com/css2?family=Geologica&family=Manrope&family=Merriweather:wght@700&family=Mukta:wght@400;500&family=Raleway&display=swap');
+
 
 :root {
     --primary-default: #0C104F;
@@ -17,7 +19,7 @@ h4,
 h5,
 h6,
 a {
-    font-family: source code pro;
+    font-family: 'Geologica', sans-serif;
 }
 
 /* Header */
@@ -131,6 +133,7 @@ header nav ul li a {
 /* Hero Section */
 #hero {
     height: 100vh;
+    width: 100%;
     /* background: url(../img/594-man-telescope-floydworx_4x.webp) no-repeat;
     background-size: cover;
     background-position: top; */
@@ -191,11 +194,15 @@ header nav ul li a {
     }
 
     #hero .body-content .text-content p {
-        font-size: 27px;
+        font-size: 25px !important;
     }
 
     #hero .body-content .hero-content {
-        display: block;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+        justify-content: center;
         text-align: start;
     }
 
@@ -274,11 +281,11 @@ header nav ul li a {
 
 /* Analysis Section */
 #analysis {
-    height: 50vh;
+    height: auto;
+    padding: 1rem 0;
     background: url(../img/o-STAR-QUOTES-GPS-GUIDE-facebook.jpg) no-repeat;
     background-size: cover;
     position: relative;
-    width: 100vw;
 }
 
 #analysis h4,

@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+include_once "./script/db.script.php";
 include_once "script/user.script.php";
 if (!isset($_SESSION['id'])) {
     header("Location: auth");
@@ -9,6 +10,7 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
+
 $trx_id = random_gen(10,'Trx');
 $sql = "SELECT * FROM `transactions` WHERE trx_id = '$trx_id'";
 $result = $conn->query($sql);
@@ -49,15 +51,17 @@ if(mysqli_num_rows($result) > 0){
 
         <ul class="red-menu">
             <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
-            <li><a href="#"><i class="fa fa-plug"></i></a></li>
-            <li><a href="#"><i class="fa fa-layer-group"></i></a></li>
-            <li title="Signout"><a href="?logout=yes"><i class="fa fa-sign-out-alt"></i></a></li>
+            <li><a href="trade-history"><i class="fa fa-chart-line"></i></a></li>
         </ul>
+
+        <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white; margin-top: 20px;"></i></a>
     </aside>
 
     <!-- Main Section -->
+    <div class="responsive-menu">
+        <span class="bi bi-justify" id="sideBarToggler"></span>
+    </div>
     <main>
-        <span class="fa fa-bars" id="sideBarToggler"></span>
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
@@ -65,18 +69,18 @@ if(mysqli_num_rows($result) > 0){
                 </div>
 
                 <div class="profile">
-                    <i class="fa fa-chevron-down"></i>
-                    <img src="./assets/img/d256e8494750efbcab3f4cde67fc1dc1.webp" alt="">
+                    <div class="profile-header">
+                        <span class="fa fa-chevron-down chg"></span>
+                        <img src="./img/<?=$user_image?>" alt="update profile">
+                    </div>
                     <ul class="drop-down">
                         <li><a href="#">
                                 <?= $username ?>
                             </a></li>
                         <li><i class="fa fa-envelope"></i>
-                                <?= $user_email ?>
-                            </li>
-                        <li><a href="./profile.php"><i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
-                        <li><a href="?logout=yes"><i class="fa fa-door-open"></i> Logout</a></li>
+                            <?= $user_email ?>
+                        </li>
+                        <li><a href="./profile"><i class="fa fa-user"></i> Profile</a></li>
                         <?php
                         if (isset($_GET['logout'])) {
                             logout();
@@ -91,53 +95,55 @@ if(mysqli_num_rows($result) > 0){
                     <i class="fa fa-wallet"></i>
                     <div class="scrolly-item-text">
                         <p>Avaliable Balance</p>
-                        <h5><?=$balance?></h5>
+                        <!--completed deposits minus completed withdrawals  -->
+                        <h5>$<?=$balance?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-piggy-bank"></i>
                     <div class="scrolly-item-text">
                         <p>Total Balance</p>
-                        <h5>3,002</h5>
+                        <!-- All deposit minus completed withdrawal -->
+                        <h5>$<?=totalTrx($_SESSION['id'],'deposit') - totalTrx($_SESSION['id'],'withdrawal','completed')?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-arrow-down"></i>
                     <div class="scrolly-item-text">
                         <p>Total Withdrawal</p>
-                        <h5>4,2020</h5>
+                        <h5>$<?=totalTrx($_SESSION['id'],'withdraw')?></h5>
                     </div>
                 </div>
                 <div class="scrolly-item">
                     <i class="fa fa-dollar-sign"></i>
                     <div class="scrolly-item-text">
                         <p>Pending Deposits</p>
-                        <h5>2,100</h5>
+                        <h5>$<?=totalTrx($_SESSION['id'],'deposit','pending')?></h5>
                     </div>
                 </div>
             </div>
 
-            <div class="chart-section">
+            <div class="chart-section mt-5 p-4">
                 <div class="upper">
                     <div class="follow-come">
-                        <h3>Total Score</h3>
-                        <h2>95</h2>
+                        <h3>Profit</h3>
                     </div>
 
-                    <div class="if-no-be-you">
-                        <img src="./assets/img/pie.png" alt="" width="200">
+                    <div class="if-no-be-you text-success">
+                        <h2>$<?=$profit?></h2>
                     </div>
+                </div>                           
+            </div>
+
+            <div class="profile-details">
+                <div class="profile-image">
+                    <img src="./img/<?=$user_image?>" alt="">
                 </div>
-
-                <div class="lower">
-                    <div class="marijuana">
-                        <p>Community stats</p>
-                        <p class="icon"><i class="bi bi-heart-fill"></i> 95%</p>
-                        <p>24 Youths</p>
-                    </div>
-                    <div class="line">
-                        <div class="inner-line"></div>
-                    </div>
+                <div class="profile-info">
+                    <h5>Full name: <?=$firstname . " " . $lastname?></h5>
+                    <h5>Username: <?=$username?></h5>
+                    <h5>Email: <?=$user_email?></h5>
+                    <h3></h3>
                 </div>
             </div>
         </div>
@@ -158,7 +164,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount" required>
+                                <input type="number" class="form-control" id="amount" name="damount" placeholder="Enter the amount to deposit" required min="1">
                             </div>
                         </div>
                         <div class="form-group">
@@ -188,7 +194,7 @@ if(mysqli_num_rows($result) > 0){
                                         <i class="fa fa-dollar-sign"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required>
+                                <input type="number" class="form-control" id="amount" name="wamount" placeholder="Enter the amount" required min="1">
                             </div>
                         </div>
                         <div class="form-group">
@@ -216,7 +222,7 @@ if(mysqli_num_rows($result) > 0){
                    }elseif ($_POST['trx'] == "Withdraw") {
                         $amount = $_POST['wamount'];
                         $trx_id = $_POST['trx_id'];
-                        withdraw($trx_id,$amount,$_SESSION['id']);
+                        withdraw($trx_id,$amount,$_SESSION['id'],$balance);
                    }
                 }
             ?>
@@ -267,68 +273,62 @@ if(mysqli_num_rows($result) > 0){
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
     <!-- Base Sripts File -->
     <script>
-    // Dashboard Profile Dropdown
-    const profile = document.querySelector(".profile");
-    const dropdown_btn = document.querySelector(".fa-chevron-down");
-    const dropdown_menu = document.querySelector(".drop-down");
-    let tf = false;
+        // Dashboard Profile Dropdown
+        const profile = document.querySelector(".profile-header");
+        const dropdown_btn = document.querySelector(".chg");
+        const dropdown_menu = document.querySelector(".drop-down");
+        let tf = false;
 
-    profile.addEventListener('click', (e) => {
-        tf = !tf;
-        if (tf) {
-            dropdown_btn.classList.add('rotate_90');
-            dropdown_menu.classList.add('show');
-        } else {
-            e.target.classList.remove('rotate');
-            dropdown_menu.classList.remove('show');
-        }
-    })
+        profile.addEventListener('click', (e) => {
+            tf = !tf;
+            if (tf) {
+                dropdown_menu.classList.add('show');
+            } else {
+                dropdown_menu.classList.remove('show');
+            }
+        })
 
-    const sideBarToggle = document.getElementById("sideBarToggler");
-    const sideBar = document.querySelector(".sideBar");
-    let shwOrNot = false;
+        const sideBarToggle = document.querySelector("#sideBarToggler");
+        const sideBar = document.querySelector(".sideBar");
+        let shwOrNot = false;
 
-    sideBarToggle.addEventListener('click', (e) => {
-        shwOrNot = !shwOrNot;
-        if (shwOrNot) {
-            sideBar.style.display = 'block';
-            e.target.style.marginLeft = "2rem";
-            console.log(shwOrNot);
-        } else {
-            sideBar.style.display = 'none';
-            e.target.style.marginLeft = "1.5rem";
-        }
-    })
+        sideBarToggle.addEventListener('click', (e) => {
+            shwOrNot = !shwOrNot;
+            if (shwOrNot) {
+                sideBar.style.display = 'flex';
+            } else {
+                sideBar.style.display = 'none';
+                e.target.style.marginLeft = "1.5rem";
+            }
+        })
 
-    // Deposit %& Withdraw Form Toggler
 
-    const depositSection = document.querySelector("#depositSection");
-    const withdrawSection = document.querySelector("#withdrawalSection");
-    const depositButton = document.querySelector("#depositButton");
-    const withdrawButton = document.querySelector("#withdrawButton");
-    let ufo = false;
+        // Deposit and withdrawal
+        const depositSection = document.querySelector("#depositSection");
+        const withdrawSection = document.querySelector("#withdrawalSection");
+        const depositButton = document.querySelector("#depositButton");
+        const withdrawButton = document.querySelector("#withdrawButton");
 
-    depositButton.addEventListener('click', e => {
-        ufo = !ufo;
-        if (ufo) {
-            depositSection.style.display = "none";
-            withdrawalSection.style.display = "none";
-        }
-        else {
+        depositButton.addEventListener('click', () => {
             depositSection.style.display = "block";
-        }
-    })
+            withdrawSection.style.display = "none";
+            depositButton.style.backgroundColor = "#6d6dff";
+            depositButton.style.color = "#fff";
+            withdrawButton.style.color = "#000";
+            withdrawButton.style.backgroundColor = "transparent";
+        });
 
-    withdrawButton.addEventListener('click', e => {
-        ufo = !ufo;
-        if (ufo) {
-            withdrawalSection.style.display = "none";
+        withdrawButton.addEventListener('click', () => {
+            withdrawSection.style.display = "block";
             depositSection.style.display = "none";
-        }
-        else {
-            withdrawalSection.style.display = "block";
-        }
-    })
+            withdrawButton.style.backgroundColor = "#6d6dff";
+            depositButton.style.color = "#000";
+            withdrawButton.style.color = "#fff";
+            depositButton.style.backgroundColor = "transparent";
+        });
+
+        // Show the deposit section by default
+        depositButton.click();
 
     </script>
 </body>

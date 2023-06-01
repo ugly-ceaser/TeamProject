@@ -34,79 +34,126 @@ if (!isset($_SESSION['id'])) {
 
 <body>
     <header>
-        <h2>My Profile</h2>
-        <img src="./assets/img/56bda8eac2e557228b8eecd613a13d47.jpg" alt="profile-image">
+        <h2>Profile</h2>
+        <img src="./img/<?=$user_image?>" alt="profile-image">
     </header>
+                        <?php
+                            if (isset($_GET['logout'])) {
+                                logout();
+                            }
+                        ?>
 
     <aside>
-        <ul>
+        <!-- Side Bar -->
+        <div class="sideBar">
+            <div class="brand-logo">
+                <a href="./dashboard">
+                <img src="./assets/img/logo.png" alt="">
+            </div>
+            <a href="./dashboard" title="dashboard"><i class="fa fa-house"></i></a>
+
+            <ul class="red-menu">
+                <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
+                <li><a href="./trade-history"><i class="fa fa-chart-line"></i></a></li>
+            </ul>
+
+            <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
+        </div>
+        <ul class="pages" id="pages">
             <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
-            <li class="edit_password"><i class="fa fa-shield"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
         </ul>
     </aside>
 
     <section class="main" id="profile_form">
-        <h1>Edit Profile</h1>
+        <div class="main-header">
+            <h1>Edit Profile</h1>
+            <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+        </div>
 
         <div class="form-section">
-            <div class="profile-photo">
-                <img src="./assets/img/dfc2bca3ff0746d36b76bb4de66eb8c1.jpg" alt="">
+           <form action="" method="post" enctype="multipart/form-data">
+           <div class="profile-photo">
+                <img src="./img/<?=$user_image?>" alt="update Profile">
             </div>
 
-            <div class="form-group">
-                <label for="user_image">Select Image</label>
-                <input type="file" name="user_image" id="user_image" class="p-1">
-            </div>
+            <input type="file" name="profile_photo" id="profile_photo">
 
-            <div class="form-diff">
-                <div class="form-group">
-                    <label for="firstname">First name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" spellcheck="true" value="<?=$firstname?>">
+                <div class="form-diff">
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control" value="<?= $firstname ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control"  value="<?= $lastname ?>" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lastname">Last name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control"spellcheck="true" value="<?=$lastname?>">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" value="<?= $username ?>" required>
                 </div>
-            </div>
+            <input type="submit" value="Save" name="update">
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" spellcheck="true" value="<?=$username?>">
-            </div>
+            <?php
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" name="email" id="email" spellcheck="true" value="<?=$user_email?>">
-            </div>
+                if (isset($_POST['update'])) {
+                    $first_name = $_POST['first_name'];
+                    $last_name = $_POST['last_name'];
+                    $username = $_POST['username'];
+                    $profile_photo = $_FILES['profile_photo'];
 
-            <input type="submit" value="Save">
+                    updateProfile($username,$profile_photo,$first_name,$last_name);
+                }
+
+            ?>
+
+            <?php
+
+                if (isset($_POST['change'])) {
+                    $old = $_POST['oldpassword'];
+                    $new = $_POST['new_password'];
+                    $confirm = $_POST['confirm_password'];
+
+                    updatePassword($old,$new,$confirm);
+                }
+
+            ?>
+           </form>
         </div>
     </section>
 
-    <section class="main" id="passord_security_form">
+    <section class="main" id="password_security_form">
         <div class="form-section">
+            <div class="main-header">
+                <h1>Password And Security</h1>
+                <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
+            </div>
             <button class="change-password-btn">Change Password</button>
 
             <div class="change-password-form">
-                <div class="form-group">
-                    <label for="old_password">Old Password</label>
-                    <input type="password" name="oldpassword" id="oldpassword">
-                </div>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="old_password">Old Password</label>
+                        <input type="password" name="oldpassword" id="oldpassword" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="new_password">New Password</label>
-                    <input type="password" name="new_password" id="new_password">
-                </div>
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" name="new_password" id="new_password" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" name="confirm_password" id="confirm_password">
-                </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" required>
+                    </div>
 
-                <input type="submit" value="Update Password">
-                <button class="reset-password-btn">Reset Password</button>
+                    <input type="submit" value="Update Password" name="change">
+                </form>
             </div>
+           
 
             <!-- <div class="change-password">
                 <div class="form-group">
@@ -131,41 +178,76 @@ if (!isset($_SESSION['id'])) {
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
-    
+
     <script>
-        const edit_profile = document.querySelector('.edit_profile');
-        const profile_form =document.querySelector('#profile_form');
-        const passord_security_form =document.querySelector('#passord_security_form');
-        const edit_password = document.querySelector('.edit_password');
-        const change_password_btn =document.querySelector('.change-password-btn');
-        const reset_password_btn =document.querySelector('.reset-password-btn');
-        const change_password_form =document.querySelector('.change-password-form');
-        const edit_profile_chev = document.querySelector('#chev');
-        const edit_password_chev = document.querySelector('#chev');
+        const editProfile = document.querySelector('.edit_profile');
+        const profileForm = document.querySelector('#profile_form');
+        const passwordSecurityForm = document.querySelector('#password_security_form');
+        const editPassword = document.querySelector('.edit_password');
+        const changePasswordBtn = document.querySelector('.change-password-btn');
+        const changePasswordForm = document.querySelector('.change-password-form');
+        const toggleSideBar = document.querySelectorAll("#toggleSideBar");
+        const aside = document.querySelector('aside');
 
-        let tf = false;
-        edit_profile.addEventListener('click', (e) => {
-            if (!tf) {
-                edit_profile.classList.add('active');
-                profile_form.style.display = 'block';
-                passord_security_form.style.display = 'none';
-                edit_password.classList.remove('active');
-            }
-        })
+        let showOrHideAside = false;
 
-        edit_password.addEventListener('click', (e) => {
-            if (!tf) {
-                edit_password.classList.add('active');
-                profile_form.style.display = 'none'
-                edit_profile.classList.remove('active');
-                passord_security_form.style.display = 'block';
-            }
-        })
+        editProfile.addEventListener('click', () => {
+            setActive(editProfile);
+            showForm(profileForm);
+            hideForm(passwordSecurityForm);
+            removeActive(editPassword);
+        });
 
-        change_password_btn.addEventListener('click', (e) => {
-            change_password_form.style.display = 'block'
-        })
+        editPassword.addEventListener('click', () => {
+            setActive(editPassword);
+            showForm(passwordSecurityForm);
+            hideForm(profileForm);
+            removeActive(editProfile);
+        });
+
+        changePasswordBtn.addEventListener('click', () => {
+            showForm(changePasswordForm);
+        });
+
+        toggleSideBar.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                showOrHideAside = !showOrHideAside;
+                if (showOrHideAside) {
+                    aside.style.width = '70%'
+                    aside.style.display = "flex"
+                    e.target.textContent = "Hide";
+                } else {
+                    hideElement(aside);
+                    e.target.textContent = "Menu";
+                }
+            });
+        });
+
+        function setActive(element) {
+            element.classList.add('active');
+        }
+
+        function removeActive(element) {
+            element.classList.remove('active');
+        }
+
+        function showForm(form) {
+            form.style.display = 'block';
+        }
+
+        function hideForm(form) {
+            form.style.display = 'none';
+        }
+
+        function showElement(element) {
+            element.style.display = 'block';
+        }
+
+        function hideElement(element) {
+            element.style.display = 'none';
+        }
     </script>
+
 </body>
 
 </html>
