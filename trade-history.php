@@ -9,7 +9,10 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
-// changes
+
+if (isset($_GET['logout'])) {
+    logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,42 +29,30 @@ if (!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="./assets/vendor/Font-awesome/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Merriweather:wght@700&display=swap"
+        rel="stylesheet">
     <!-- Base Css File -->
     <link rel="stylesheet" href="./assets/css/dashboard.css">
 
     <style>
-        .tables {
-            margin-left: 100px;
-            padding: 1rem;
-        }
-
-        .witdrawal_table,
-        .deposit_table {
-            margin: 2rem 0;
-        }
-
-        .witdrawal_table {
-            margin-bottom: 2.5rem;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            overflow-x: scroll;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
         th {
-            background-color: #f2f2f2;
+            background: var(--primary-default);
+        }
+        .holder {
+            display: flex !important;
+            justify-content: start;
+            position: fixed;
+        }
+        .sideBar {
+            width: 5vw;
+            position: relative;
         }
 
+        .mainContainer {
+            margin-left: 0 !important;
+            height: 100vh;
+            width: 95vw;
+        }
         .hd {
             display: flex;
             justify-content: space-between;
@@ -77,97 +68,126 @@ if (!isset($_SESSION['id'])) {
             position: relative;
             top: 0;
         }
+
+        thead {
+            position: sticky;
+            top:1px;
+        }
+
+        .deposit {
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        td {
+            color: black;
+            padding: 0 !important;
+        }
     </style>
 </head>
 
 <body>
     <!-- Side Bar -->
-    <aside class="sideBar">
-        <div class="brand-logo">
-            <a href="./dashboard">
-                <img src="./assets/img/logo.png" alt="">
-            </a>
-        </div>
-        <a href="./dashboard"><i class="fa fa-house"></i></a>
+    <div class="holder">
 
-        <ul class="red-menu">
-            <li><a href="profile"><i class="fa fa-user"></i></a></li>
-            <li><a href="#"><i class="fa fa-chart-line"></i></a></li>
-        </ul>
+        <aside class="sideBar">
+            <div class="brand-logo">
+                <a href="./dashboard">
+                    <img src="./assets/img/logo.png" alt="">
+                </a>
+            </div>
+            <a href="./dashboard"><i class="fa fa-house"></i></a>
 
-        <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
-    </aside>
+            <ul class="red-menu">
+                <li><a href="profile"><i class="fa fa-user"></i></a></li>
+                <li><a href="#"><i class="fa fa-chart-line"></i></a></li>
+            </ul>
 
-    <div class="tables">
-        <div class="hd">
-            <h1>Trade History</h1>
-            <span class="bi bi-justify" id="sideBarToggler"></span>
-        </div>
+            <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
+        </aside>
+        <div class="mainContainer">
+            <div class="hd caption">
+                <h1>Trade History</h1>
+                <span class="bi bi-justify" id="sideBarToggler"></span>
+            </div>
 
-        <div class="witdrawal_table">
-            <h3>Withdrawals </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php 
-                        $id = $_SESSION['id'];
-                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'withdraw' ORDER BY `id` DESC ";
-                      $result = $conn->query($sql);
-                        foreach($result  as $key) {
-                            extract($key);
-                        ?>
-                    <tr>
-                        <td><?= substr($date,0,10) ?></td>
-                        <td>$<?=$amount?></td>
-                        <td><?=$status?></td>
-                    </tr>
-                    <?php }?>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
-        </div>
+            <div class="mainTables">
 
-                        <?php
-                            if (isset($_GET['logout'])) {
-                                logout();
-                            }
-                        ?>
+                <div class="Withdraw">
+                    <h3>Withdrawals </h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $id = $_SESSION['id'];
+                            $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'withdraw' ORDER BY `id` DESC ";
+                            $result = $conn->query($sql);
+                            foreach ($result as $key) {
+                                extract($key);
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?= substr($date, 0, 10) ?>
+                                    </td>
+                                    <td>$
+                                        <?= $amount ?>
+                                    </td>
+                                    <td>
+                                        <?= $status ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
 
-        <div class="deposit_table">
-            <h3>Deposits </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php 
-                        $id = $_SESSION['id'];
-                      $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'deposit' ORDER BY `id` DESC ";
-                      $result = $conn->query($sql);
-                        foreach($result  as $key) {
-                            extract($key);
-                        ?>
-                    <tr>
-                        <td><?= substr($date,0,10) ?></td>
-                        <td>$<?=$amount?></td>
-                        <td><?=$status?></td>
-                    </tr>
-                    <?php }?>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+                <div class="deposit">
+                    <h3>Deposits </h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $id = $_SESSION['id'];
+                            $sql = "SELECT * FROM `transactions` WHERE `user_id` = $id AND `trx_type` = 'deposit' ORDER BY `id` DESC ";
+                            $result = $conn->query($sql);
+                            foreach ($result as $key) {
+                                extract($key);
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?= substr($date, 0, 10) ?>
+                                    </td>
+                                    <td>$
+                                        <?= $amount ?>
+                                    </td>
+                                    <td>
+                                        <?= $status ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
         </div>
     </div>
+
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
