@@ -13,6 +13,10 @@ if (!isset($_SESSION['id'])) {
 if (isset($_GET['logout'])) {
     logout();
 }
+
+if (isset($_GET['logout'])) {
+    logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
