@@ -43,7 +43,6 @@ if(mysqli_num_rows($result) > 0){
 
 <body>
 <div class="holder">
-<div class="holder">
     <!-- Side Bar -->
     <aside class="sideBar">
         <div class="brand-logo">
@@ -117,8 +116,6 @@ if(mysqli_num_rows($result) > 0){
                     <div class="scrolly-item-text">
                         <p>Profit</p>
                         <h5>$<?=$profit?></h5>
-                        <p>Profit</p>
-                        <h5>$<?=$profit?></h5>
                     </div>
                 </div>
             </div>
@@ -130,12 +127,7 @@ if(mysqli_num_rows($result) > 0){
                 <div class="profile-info">
                     <h6>Full name: <?=$firstname . " " . $lastname?></h6>
                     <h6>Username: <?=$username?></h6>
-                    <h6>Email: <?=$user_email?></h6>
-                    
-                    <h6>Full name: <?=$firstname . " " . $lastname?></h6>
-                    <h6>Username: <?=$username?></h6>
-                    <h6>Email: <?=$user_email?></h6>
-                    
+                    <h6>Email: <?=$user_email?></h6>     
                 </div>
             </div>
         </div>
@@ -176,7 +168,6 @@ if(mysqli_num_rows($result) > 0){
 
                 <div class="form-section" id="withdrawalSection">
                 <form class="form" style="margin-top: 2rem;" method="post" action="">
-                        <h4 style="color:white">Withdraw</h4>
                         <h4 style="color:white">Withdraw</h4>
                         <!-- withdraw Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
@@ -223,7 +214,6 @@ if(mysqli_num_rows($result) > 0){
             <div class="trade-history">
                 <div class="trade-history-header">
                     <h2 style="color:white">Latest Transaction</h2>
-                    <h2 style="color:white">Latest Transaction</h2>
                 </div>
 
                 <div class="trade-history-body">
@@ -259,12 +249,7 @@ if(mysqli_num_rows($result) > 0){
             </div>
         </div>
     </main>
-
-    </div>
-
-    </div>
-
-
+</div>
 
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
