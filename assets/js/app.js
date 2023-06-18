@@ -9,15 +9,11 @@
         if (bool) {
             responsive_navBar.style.top = "80px"
             responsive_navBar.style.opacity = "1"
-            responsive_navBar.style.zIndex = "999"
-            responsive_navBar.style.display = "block"
             // responsive_navBar.style.top = "80px"
         }
         else {
             responsive_navBar.style.top = "50px"
             responsive_navBar.style.opacity = "0"
-            responsive_navBar.style.zIndex = "-999"
-            responsive_navBar.style.display = "none"
         }
     })
 

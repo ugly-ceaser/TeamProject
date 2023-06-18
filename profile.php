@@ -27,73 +27,67 @@ if (!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="./assets/vendor/Font-awesome/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Merriweather:wght@700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <!-- Base Css File -->
     <link rel="stylesheet" href="./assets/css/profile.css">
 </head>
 
 <body>
     <header>
-        <h2><?=$username?></h2>
-        <img src="./img/<?= $user_image ?>" alt="profile-image">
+        <h2>Profile</h2>
+        <img src="./img/<?=$user_image?>" alt="profile-image">
     </header>
-    <?php
-    if (isset($_GET['logout'])) {
-        logout();
-    }
-    ?>
+                        <?php
+                            if (isset($_GET['logout'])) {
+                                logout();
+                            }
+                        ?>
 
-    <div class="holder">
-    <aside class="sideBar">
-        <div class="brand-logo">
-            <a href="./dashboard.php">
-            <img src="./assets/img/logo.png" alt="">
-            </a>
+    <aside>
+        <!-- Side Bar -->
+        <div class="sideBar">
+            <div class="brand-logo">
+                <a href="./dashboard">
+                <img src="./assets/img/logo.png" alt="">
+            </div>
+            <a href="./dashboard" title="dashboard"><i class="fa fa-house"></i></a>
+
+            <ul class="red-menu">
+                <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
+                <li><a href="./trade-history"><i class="fa fa-chart-line"></i></a></li>
+            </ul>
+
+            <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
         </div>
-        <a href="./dashboard.php" title="dashboard"><i class="fa fa-house"></i></a>
-
-        <ul class="red-menu">
-            <li title="profile"><a href="profile"><i class="fa fa-user"></i></a></li>
-            <li><a href="trade-history"><i class="fa fa-chart-line"></i></a></li>
+        <ul class="pages" id="pages">
+            <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
         </ul>
-
-        <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white; margin-top: 20px;"></i></a>
     </aside>
 
-    <main class="main">
-    <ul class="pages" id="pages">
-        <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile </i></li>
-        <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security</li>
-        <li class="edit_password"><i class="fa fa-crown" id="shd"></i> Upgrade Package </i></li>
-        <li class="edit_password"><i class="fa fa-user" id="shd"></i> Contact Admin </i></li>
-    </ul>
-
-    <section class="profile_form" id="profile_form">
+    <section class="main" id="profile_form">
         <div class="main-header">
             <h1>Edit Profile</h1>
             <a href="#" class="menu not-active" id="toggleSideBar">Menu</a>
         </div>
 
         <div class="form-section">
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="profile-photo">
-                    <img src="./img/<?= $user_image ?>" alt="update Profile">
-                </div>
+           <form action="" method="post" enctype="multipart/form-data">
+           <div class="profile-photo">
+                <img src="./img/<?=$user_image?>" alt="update Profile">
+            </div>
 
-                <input type="file" name="profile_photo" id="profile_photo">
+            <input type="file" name="profile_photo" id="profile_photo">
 
                 <div class="form-diff">
                     <div class="form-group">
                         <label for="firstname">First name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control"
-                            value="<?= $firstname ?>" required>
+                        <input type="text" name="first_name" id="first_name" class="form-control" value="<?= $firstname ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="lastname">Last name</label>
-                        <input type="text" name="last_name" id="last_name" class="form-control" value="<?= $lastname ?>"
-                            required>
+                        <input type="text" name="last_name" id="last_name" class="form-control"  value="<?= $lastname ?>" required>
                     </div>
                 </div>
 
@@ -101,9 +95,9 @@ if (!isset($_SESSION['id'])) {
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" value="<?= $username ?>" required>
                 </div>
-                <input type="submit" value="Save" name="update">
+            <input type="submit" value="Save" name="update">
 
-                <?php
+            <?php
 
                 if (isset($_POST['update'])) {
                     $first_name = $_POST['first_name'];
@@ -111,23 +105,23 @@ if (!isset($_SESSION['id'])) {
                     $username = $_POST['username'];
                     $profile_photo = $_FILES['profile_photo'];
 
-                    updateProfile($username, $profile_photo, $first_name, $last_name);
+                    updateProfile($username,$profile_photo,$first_name,$last_name);
                 }
 
-                ?>
+            ?>
 
-                <?php
+            <?php
 
                 if (isset($_POST['change'])) {
                     $old = $_POST['oldpassword'];
                     $new = $_POST['new_password'];
                     $confirm = $_POST['confirm_password'];
 
-                    updatePassword($old, $new, $confirm);
+                    updatePassword($old,$new,$confirm);
                 }
 
-                ?>
-            </form>
+            ?>
+           </form>
         </div>
     </section>
 
@@ -159,7 +153,7 @@ if (!isset($_SESSION['id'])) {
                     <input type="submit" value="Update Password" name="change">
                 </form>
             </div>
-
+           
 
             <!-- <div class="change-password">
                 <div class="form-group">
@@ -181,8 +175,6 @@ if (!isset($_SESSION['id'])) {
             </div> -->
         </div>
     </section>
-    </main>
-    </div>
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>
@@ -195,7 +187,7 @@ if (!isset($_SESSION['id'])) {
         const changePasswordBtn = document.querySelector('.change-password-btn');
         const changePasswordForm = document.querySelector('.change-password-form');
         const toggleSideBar = document.querySelectorAll("#toggleSideBar");
-        const aside = document.querySelector('.pages');
+        const aside = document.querySelector('aside');
 
         let showOrHideAside = false;
 
@@ -221,7 +213,8 @@ if (!isset($_SESSION['id'])) {
             toggle.addEventListener('click', (e) => {
                 showOrHideAside = !showOrHideAside;
                 if (showOrHideAside) {
-                    aside.style.display = "block"
+                    aside.style.width = '70%'
+                    aside.style.display = "flex"
                     e.target.textContent = "Hide";
                 } else {
                     hideElement(aside);

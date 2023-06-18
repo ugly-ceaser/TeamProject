@@ -52,7 +52,7 @@
                     <div class="form-group">
                         <button type="submit" name="register" id="reg">Register</button>
                     </div>
-                    <a class="form-recovery" style="text-decoration: none;" href="auth">Login</a>
+                    <a class="form-recovery" style="text-decoration: none;" href="auth">Login instead</a>
                 </form>
             </div>
 
