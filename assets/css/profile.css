@@ -1,5 +1,5 @@
 :root {
-    --primary-default: #6d6dff;
+    --primary-default: #171735;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Geologica&family=Manrope&family=Merriweather:wght@700&family=Mukta:wght@400;500&family=Raleway&display=swap');
@@ -43,14 +43,21 @@ header img {
     width: 50px;
 }
 
-aside {
-    display: flex;
-    background-color: white;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+.sideBar {
+    width: 5vw;
     height: 100vh;
-    position: fixed;
+    z-index: 1;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    font-size: 21px;
+    flex-direction: column;
+    background: var(--primary-default);
 }
+
 
 aside ul.pages {
     list-style-type: none;
@@ -84,16 +91,16 @@ aside ul.pages li {
 }
 
 .sideBar {
-    width: 100px;
+    width: 50px;
     height: 100vh;
-    padding: 20px;
+    
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-self: center;
     font-size: 21px;
     flex-direction: column;
-    background: var(--primary-default);
+    background: #171735;
 }
 
 .sideBar .brand-logo {

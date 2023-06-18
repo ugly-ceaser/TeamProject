@@ -62,6 +62,9 @@ if (!isset($_SESSION['id'])) {
         <ul class="pages" id="pages">
             <li class="edit_profile active"><i class="fa fa-pencil"></i> Edit Profile <i class="fa fa-chevron-right" id="chev"></i></li>
             <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Password & Security <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Upgrade Package <i class="fa fa-chevron-right" id="chev"></i></li>
+            <li class="edit_password"><i class="fa fa-shield" id="shd"></i> Contact Admin <i class="fa fa-chevron-right" id="chev"></i></li>
+        </ul>
         </ul>
     </aside>
 

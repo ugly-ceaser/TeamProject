@@ -9,7 +9,10 @@ if (!isset($_SESSION['id'])) {
         extract($row);
 
 }
-// changes
+
+if (isset($_GET['logout'])) {
+    logout();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,36 +34,7 @@ if (!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="./assets/css/dashboard.css">
 
     <style>
-        .tables {
-            margin-left: 100px;
-            padding: 1rem;
-        }
-
-        .witdrawal_table,
-        .deposit_table {
-            margin: 2rem 0;
-        }
-
-        .witdrawal_table {
-            margin-bottom: 2.5rem;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            overflow-x: scroll;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
+  
 
         .hd {
             display: flex;
@@ -82,6 +56,8 @@ if (!isset($_SESSION['id'])) {
 
 <body>
     <!-- Side Bar -->
+    <div class="holder">
+
     <aside class="sideBar">
         <div class="brand-logo">
             <a href="./dashboard">
@@ -98,13 +74,15 @@ if (!isset($_SESSION['id'])) {
         <a href="?logout=yes"><i class="fa fa-sign-out-alt" style="color: white;"></i></a>
     </aside>
 
-    <div class="tables">
-        <div class="hd">
+    <div class="mainContainer">
+        <div class="hd caption">
             <h1>Trade History</h1>
             <span class="bi bi-justify" id="sideBarToggler"></span>
         </div>
 
-        <div class="witdrawal_table">
+        <div class="mainTables">
+
+        <div class="Withdraw">
             <h3>Withdrawals </h3>
             <table>
                 <thead>
@@ -133,13 +111,9 @@ if (!isset($_SESSION['id'])) {
             </table>
         </div>
 
-                        <?php
-                            if (isset($_GET['logout'])) {
-                                logout();
-                            }
-                        ?>
+                      
 
-        <div class="deposit_table">
+        <div class="deposit">
             <h3>Deposits </h3>
             <table>
                 <thead>
@@ -167,7 +141,14 @@ if (!isset($_SESSION['id'])) {
                 </tbody>
             </table>
         </div>
+
+        </div>
+
+       
     </div>
+        
+    </div>
+   
     <!-- Assets -->
     <script src="./assets/vendor/aos/aos.js"></script>
     <script src="./assets/vendor/Font-awesome/js/all.min.js"></script>

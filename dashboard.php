@@ -42,6 +42,7 @@ if(mysqli_num_rows($result) > 0){
 </head>
 
 <body>
+<div class="holder">
     <!-- Side Bar -->
     <aside class="sideBar">
         <div class="brand-logo">
@@ -61,7 +62,7 @@ if(mysqli_num_rows($result) > 0){
     <div class="responsive-menu">
         <span class="bi bi-justify" id="sideBarToggler"></span>
     </div>
-    <main>
+    <main class="main">
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
@@ -71,7 +72,7 @@ if(mysqli_num_rows($result) > 0){
                 <div class="profile">
                     <div class="profile-header">
                         <span class="fa fa-chevron-down chg"></span>
-                        <img src="./img/<?=$user_image?>" alt="update profile">
+                        <img src="./img/<?=$user_image ? $user_image : "sample.png"?>" alt="update profile">
                     </div>
                     <ul class="drop-down">
                         <li><a href="#">
@@ -117,44 +118,34 @@ if(mysqli_num_rows($result) > 0){
                 <div class="scrolly-item">
                     <i class="fa fa-dollar-sign"></i>
                     <div class="scrolly-item-text">
-                        <p>Pending Deposits</p>
-                        <h5>$<?=totalTrx($_SESSION['id'],'deposit','pending')?></h5>
+                        <p>Profit</p>
+                        <h5>$<?=$profit?></h5>
                     </div>
                 </div>
             </div>
 
-            <div class="chart-section mt-5 p-4">
-                <div class="upper">
-                    <div class="follow-come">
-                        <h3>Profit</h3>
-                    </div>
-
-                    <div class="if-no-be-you text-success">
-                        <h2>$<?=$profit?></h2>
-                    </div>
-                </div>                           
-            </div>
+           
 
             <div class="profile-details">
                 <div class="profile-image">
-                    <img src="./img/<?=$user_image?>" alt="">
+                    <img src="./img/<?=$user_image ? $user_image : 'sample2.png' ?>" alt="">
                 </div>
                 <div class="profile-info">
-                    <h5>Full name: <?=$firstname . " " . $lastname?></h5>
-                    <h5>Username: <?=$username?></h5>
-                    <h5>Email: <?=$user_email?></h5>
-                    <h3></h3>
+                    <h6>Full name: <?=$firstname . " " . $lastname?></h6>
+                    <h6>Username: <?=$username?></h6>
+                    <h6>Email: <?=$user_email?></h6>
+                    
                 </div>
             </div>
         </div>
 
         <div class="right">
             <div class="paprica">
-                <button id="depositButton">Deposit</button>
-                <button id="withdrawButton">Withdrawal</button>
+                <button id="depositButton" style="color:white">Deposit</button>
+                <button id="withdrawButton" style="color:white">Withdrawal</button>
                 <div class="form-section" id="depositSection">
                     <form class="form" style="margin-top: 2rem;" method="post" action="">
-                        <h4>Deposit</h4>
+                        <h4 style="color:white">Deposit</h4>
                         <!-- Deposit Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
                             <label for="amount">Amount</label>
@@ -184,7 +175,7 @@ if(mysqli_num_rows($result) > 0){
 
                 <div class="form-section" id="withdrawalSection">
                 <form class="form" style="margin-top: 2rem;" method="post" action="">
-                        <h4>Withdraw</h4>
+                        <h4 style="color:white">Withdraw</h4>
                         <!-- withdraw Form HTML -->
                         <div class="form-group" style="margin-bottom: 20px">
                             <label for="amount">Amount</label>
@@ -229,7 +220,7 @@ if(mysqli_num_rows($result) > 0){
 
             <div class="trade-history">
                 <div class="trade-history-header">
-                    <h2>Latest Transaction</h2>
+                    <h2 style="color:white">Latest Transaction</h2>
                 </div>
 
                 <div class="trade-history-body">
@@ -265,6 +256,8 @@ if(mysqli_num_rows($result) > 0){
             </div>
         </div>
     </main>
+
+    </div>
 
 
 

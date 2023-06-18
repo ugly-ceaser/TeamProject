@@ -1,5 +1,5 @@
 :root {
-    --primary-default: #6d6dff;
+    --primary-default: #171735;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Geologica&family=Manrope&family=Merriweather:wght@700&family=Mukta:wght@400;500&family=Raleway&display=swap');
@@ -50,13 +50,21 @@ body {
     margin-bottom: 20px;
 }
 
+.holder{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
 .sideBar {
-    width: 100px;
+    width: 5vw;
     height: 100vh;
     z-index: 1;
     padding: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
+    
     display: flex;
     align-items: center;
     justify-self: center;
@@ -65,6 +73,43 @@ body {
     background: var(--primary-default);
 }
 
+.mainContainer{
+    width: 95vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column wrap;
+}
+
+.caption{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mainTables{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mainTables > div{
+    width: 48%;
+    height: 100%;
+   
+    
+}
+
+.mainTables > div >table{
+    overflow-y: scroll;
+    
+}
 .input-group-prepend .input-group-text {
     height: 100%;
     border-radius: 0;
@@ -140,10 +185,11 @@ body {
 /* Main */
 
 main {
-    width: 94.7%;
+    width: 95vw;
     height: 100vh;
-    margin-left: 100px;
+    
     display: flex;
+    justify-content: space-between;
 }
 
 .profile-header {
@@ -277,21 +323,23 @@ main {
 .profile-details {
     display: flex;
     align-items: center;
-    justify-content: start;
+    flex-flow: column nowrap;
+    justify-content: center;
     width: 100%;
-    gap: 10px;
+    padding: 10px;
+ 
     height: 450px;
 }
 
 .profile-image {
     display: flex;
-    width: 30%;
+    width: 60%;
     align-items: center;
 }
 
 .profile-image img {
     width: 100%;
-    border-radius: 50%;
+    border-radius: 15px;
 }
 
 .profile-info h5 {
@@ -380,7 +428,7 @@ main {
 .right {
     width: 60%;
     height: 100%;
-    background: #fbfbfd;
+    background: #171735;
     padding: 2rem 1rem 0 2rem;
 }
 
