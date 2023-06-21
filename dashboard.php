@@ -61,7 +61,7 @@ if(mysqli_num_rows($result) > 0){
         <div class="left">
             <div class="box-content-list">
                 <div class="search-box">
-                   <h3>Ifeanyi's dashboard</h2>
+                   <h3><?=$username?></h2>
                 </div>
 
                 <div class="profile">
